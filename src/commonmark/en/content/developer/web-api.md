@@ -26,14 +26,14 @@ architectural style. To mention some few and important ones:
     variety of representation formats including HTML, PDF, and MS Excel.
 
 2.  All resources can be uniquely identified by a *URI* (also referred
-    to a/s *URL*). All resources have a default representation. You can
+    to as *URL*). All resources have a default representation. You can
     indicate that you are interested in a specific representation by
     supplying an *Accept* HTTP header, a file extension or a *format*
     query parameter. So in order to retrieve the PDF representation of a
-    report table you can supply a *Accept: application/pdf* header or
+    report table you can supply an *Accept: application/pdf* header or
     append *.pdf* or *?format=pdf* to your request URL.
 
-3.  Interactions with the API requires correct use of HTTP *methods* or
+3.  Interactions with the API requires the correct use of HTTP *methods* or
     *verbs*. This implies that for a resource you must issue a *GET*
     request when you want to retrieve it, *POST* request when you want
     to create one, *PUT* when you want to update it and *DELETE* when
@@ -67,7 +67,7 @@ URL:
 
     /api/33/me
 
-And more information about authorities (and if a user have a certain
+And more information about authorities (and if a user has a certain
 authority) by using the endpoints:
 
     /api/33/me/authorities
@@ -84,7 +84,7 @@ the password, Base64-encoded, prefixed Basic and supplied as the value
 of the *Authorization* HTTP header. More formally that is:
 
     Authorization: Basic base64encode(username:password)
-    
+
 Most network-aware development environments provide support for Basic 
 authentication, such as *Apache HttpClient* and *Spring RestTemplate*. 
 An important note is that this authentication scheme provides no security 
@@ -94,11 +94,11 @@ using SSL/TLS (HTTPS) to encrypt communication with clients. Consider this
 a hard requirement in order to provide secure interactions with the Web 
 API.
 
-### Two factor authentication
+### Two-factor authentication
 
 <!--DHIS2-SECTION-ID:webapi_2fa-->
 
-DHIS2 supports two factor authentication. This can be enabled per user.
+DHIS2 supports two-factor authentication. This can be enabled per user.
 When enabled, users will be asked to enter a 2FA code when logging in. You 
 can read more about 2FA [here](https://www.google.com/landing/2step/).
 
@@ -107,7 +107,7 @@ can read more about 2FA [here](https://www.google.com/landing/2step/).
 <!--DHIS2-SECTION-ID:webapi_oauth2-->
 
 DHIS2 supports the *OAuth2* authentication protocol. OAuth2 is an open
-standard for authorization which it allows third-party clients to
+standard for authorization which allows third-party clients to
 connect on behalf of a DHIS2 user and get a reusable *bearer token* for
 subsequent requests to the Web API. DHIS2 does not support fine-grained
 OAuth2 roles but rather provides applications access based on user roles
@@ -115,12 +115,11 @@ of the DHIS2 user.
 
 Each client for which you want to allow OAuth 2 authentication must be
 registered in DHIS2. To add a new OAuth2 client go to `Apps > Settings > OAuth2 Clients`
-in the user interface, click *Add new* and enter the desired client name a
-nd the grant types.
+in the user interface, click *Add new* and enter the desired client name and the grant types.
 
 #### Adding a client using the Web API
 
-An OAuth2 client can be added through the Web API. As an example we can
+An OAuth2 client can be added through the Web API. As an example, we can
 send a payload like this:
 
 ```json
@@ -155,7 +154,7 @@ We will use this client as the basis for our next grant type examples.
 
 The simplest of all grant types is the *password* grant type. This
 grant type is similar to basic authentication in the sense that it
-requires the client to collect the users username and password. As an
+requires the client to collect the user's username and password. As an
 example we can use our demo server:
 
 ```bash
@@ -179,7 +178,7 @@ This will give you a response similar to this:
 ```
 
 For now, we will concentrate on the `access_token`, which is what we
-will use as our authentication (bearer) token. As an example we will get
+will use as our authentication (bearer) token. As an example, we will get
 all data elements using our token:
 
 ```bash
@@ -229,13 +228,13 @@ SERVER="https://play.dhis2.org/dev"
 $SERVER/uaa/oauth/authorize?client_id=demo&response_type=code
 ```
 
-Step 2: After the user have successfully logged in and accepted your
+Step 2: After the user has successfully logged in and accepted your
 client access, it will redirect back to your redirect uri like this:
 
     http://www.example.org/?code=XYZ
 
 Step 3: This step is similar to what we did in the password grant type,
-using the given code, we will now ask for a access token:
+using the given code, we will now ask for an access token:
 
 ```bash
 SERVER="https://play.dhis2.org/dev"
@@ -288,11 +287,11 @@ http status message *forbidden* and a descriptive message.
 </tr>
 <tr class="odd">
 <td>status</td>
-<td>DHIS2 status, possible values are <em>OK</em> | <em>WARNING</em> | <em>ERROR</em>, where `OK` means everything was successful, `ERROR` means that operation did not complete and `WARNING` means operation was partially successful, if there message contains a `response` property, please look there for more information.</td>
+<td>DHIS2 status, possible values are <em>OK</em> | <em>WARNING</em> | <em>ERROR</em>, where `OK` means everything was successful, `ERROR` means that operation did not complete and `WARNING` means the operation was partially successful, if the message contains a `response` property, please look there for more information.</td>
 </tr>
 <tr class="even">
 <td>message</td>
-<td>A user friendly message telling whether the operation was a success or not.</td>
+<td>A user-friendly message telling whether the operation was a success or not.</td>
 </tr>
 <tr class="odd">
 <td>devMessage</td>
@@ -309,16 +308,16 @@ http status message *forbidden* and a descriptive message.
 
 <!--DHIS2-SECTION-ID:webapi_date_perid_format-->
 
-Throughout the Web API we refer to dates and periods. The date format
+Throughout the Web API, we refer to dates and periods. The date format
 is:
 
     yyyy-MM-dd
 
-For instance, if you want to express March 20, 2014 you must use
+For instance, if you want to express March 20, 2014, you must use
 *2014-03-20*.
 
 The period format is described in the following table (also available on
-API endpoint `/api/periodTypes`)
+the API endpoint `/api/periodTypes`)
 
 <table style="width:100%;">
 <caption>Period format</caption>
@@ -341,7 +340,7 @@ API endpoint `/api/periodTypes`)
 <td>Day</td>
 <td><em>yyyyMMdd</em></td>
 <td>20040315</td>
-<td>March 15 2004</td>
+<td>March 15, 2004</td>
 </tr>
 <tr class="even">
 <td>Week</td>
@@ -444,7 +443,7 @@ API endpoint `/api/periodTypes`)
 
 In some parts of the API, like for the analytics resource, you can
 utilize relative periods in addition to fixed periods (defined above).
-The relative periods are relative to the current date, and allows e.g.
+The relative periods are relative to the current date and allow e.g.
 for creating dynamic reports. The available relative period values are:
 
     THIS_WEEK, LAST_WEEK, LAST_4_WEEKS, LAST_12_WEEKS, LAST_52_WEEKS,
@@ -461,7 +460,7 @@ for creating dynamic reports. The available relative period values are:
 This section provides an explanation of the identifier scheme concept.
 Identifier schemes are used to map metadata objects to other metadata
 during import, and to render metadata as part of exports. Please note
-that not all schemes works for all API calls, and not not all
+that not all schemes work for all API calls, and not all
 schemes can be used for both input and output. This is outlined in the
 sections explaining the various Web APIs.
 
@@ -514,7 +513,7 @@ table below.
 </tr>
 <tr class="odd">
 <td>NAME</td>
-<td>Match on DHIS2 Name, please not that this uses what is available as <em>object.name</em>, and not the translated name. Also not that names are not always unique, and in that case they can not be used.</td>
+<td>Match on DHIS2 Name, please note that this uses what is available as <em>object.name</em>, and not the translated name. Also note that names are not always unique, and in that case, they can not be used.</td>
 </tr>
 <tr class="even">
 <td>ATTRIBUTE:ID</td>
@@ -524,8 +523,7 @@ table below.
 </table>
 
 Note that identifier schemes is not an independent feature but needs to
-be used in combination with resources such as data value import and meta
-data import.
+be used in combination with resources such as data value import and metadata import.
 
 As an example, to specify CODE as the general id scheme and override
 with UID for organisation unit id scheme you can use these query
@@ -544,10 +542,10 @@ scheme for all other objects you can use these parameters:
 <!--DHIS2-SECTION-ID:webapi_browsing_the_web_api-->
 
 The entry point for browsing the Web API is `/api`. This resource
-provide links to all available resources. Four resource representation
-formats are consistently available for all resources: HTML, XML, JSON
+provides links to all available resources. Four resource representation
+formats are consistently available for all resources: HTML, XML, JSON, 
 and JSONP. Some resources will have other formats available, like MS
-Excel, PDF, CSV and PNG. To explore the API from a web browser, navigate
+Excel, PDF, CSV, and PNG. To explore the API from a web browser, navigate
 to the `/api` entry point and follow the links to your desired
 resource, for instance `/api/dataElements`. For all resources which
 return a list of elements certain query parameters can be used to modify
@@ -603,7 +601,7 @@ data element groups in XML response format is:
     /api/dataElementGroups.xml?links=false&paging=false
 
 You can query for elements on the name property instead of returning
-full list of elements using the *query* query variable. In this example
+a full list of elements using the *query* query variable. In this example
 we query for all data elements with the word "anaemia" in the name:
 
     /api/dataElements?query=anaemia
@@ -630,8 +628,8 @@ the *identifiableObjects* resource:
 <!--DHIS2-SECTION-ID:webapi_translation-->
 
 DHIS2 supports translations of database content, such as data elements,
-indicators and programs. All metadata objects in the Web API have
-properties meant to be used for display / UI purposes, which includes
+indicators, and programs. All metadata objects in the Web API have
+properties meant to be used for display / UI purposes, which include
 *displayName*, *displayShortName* and *displayDescription*.
 
 <table>
@@ -668,7 +666,7 @@ properties meant to be used for display / UI purposes, which includes
 
 The translations for an object is rendered as part of the object itself
 in the *translations* array. Note that the *translations* array in the
-JSON/XML payloads are normally pre-filtered for you, which means they
+JSON/XML payloads is normally pre-filtered for you, which means they
 can not directly be used to import/export translations (as that would
 normally overwrite locales other than current users).
 
@@ -743,7 +741,7 @@ To read and update translations you can use the special translations
 endpoint for each object resource. These can be accessed by *GET* or
 *PUT* on the appropriate `/api/<object-type>/<object-id>/translations` endpoint.
 
-As an example, for a data element with identifier `FTRrcoaog83` you could use
+As an example, for a data element with identifier `FTRrcoaog83`, you could use
 `/api/dataElements/FTRrcoaog83/translations` to get and update
 translations. The fields available are `property` with options *NAME*,
 *SHORT_NAME*, *DESCRIPTION*, `locale` which supports any valid
@@ -774,7 +772,7 @@ to the appropriate endpoint:
 }
 ```
 
-For a an data element with ID *FTRrcoaog83* you can *PUT* this to
+For a data element with ID *FTRrcoaog83* you can *PUT* this to
 `/api/dataElements/FTRrcoaog83/translations`. Make sure to send all
 translations for the specific object and not just for a single locale
 (if not you will potentially overwrite existing locales for other
@@ -802,7 +800,7 @@ version), as this will protect the client from unforeseen API changes.
 The last three API versions will be supported. As an example, DHIS
 version 2.27 will support API version 27, 26 and 25.
 
-Note that the metadata model is not versioned, and that you might
+Note that the metadata model is not versioned and that you might
 experience changes e.g. in associations between objects. These changes
 will be documented in the DHIS2 major version release notes.
 
@@ -818,7 +816,7 @@ metadata you want to filter on, *operator* is the comparison operator
 you want to perform and *value* is the value to check against (not all
 operators require value). Please see the *schema* section to discover
 which properties are available. Recursive filtering, ie. filtering on
-associated objects or collection of objects, are supported as well.
+associated objects or collection of objects, is supported as well.
 
 <table>
 <caption>Available Operators</caption>
@@ -999,7 +997,7 @@ Get data elements with id property ID1 or ID2:
 
     /api/dataElements?filter=id:eq:ID1&filter=id:eq:ID2
 
-Get all data elements which has the dataSet with id ID1:
+Get all data elements which have the dataSet with id ID1:
 
     /api/dataElements?filter=dataSetElements.dataSet.id:eq:ID1
 
@@ -1025,9 +1023,9 @@ operator.
 <!--DHIS2-SECTION-ID:webapi_metadata_logical_operator-->
 
 As mentioned in the section before, the default logical operator applied
-to the filters are *AND* which means that all object filters must be
+to the filters is *AND* which means that all object filters must be
 matched. There are however cases where you want to match on one of
-several filters (maybe id and code field) and in those cases it is
+several filters (maybe id and code field) and in those cases, it is
 possible to switch the root logical operator from *AND* to *OR*
 using the *rootJunction* parameter.
 
@@ -1046,8 +1044,8 @@ and now only one of the filters must match to have a result
 
 In addition to the specific property based filtering mentioned above,
 we also have *token* based *AND* filtering across a set of
-properties: id, code and name (also shortName if available). These
-properties are commonly referred as *identifiable*. The idea is to
+properties: id, code, and name (also shortName if available). These
+properties are commonly referred to as *identifiable*. The idea is to
 filter metadata whose id, name, code or short name containing something.
 
 Example: Filter all data elements containing *2nd* in any of the
@@ -1061,18 +1059,34 @@ Example: Get all data elements where *ANC visit* is found in any of the *identif
 
     /api/dataElements.json?filter=identifiable:token:ANC visit
 
-It is also possible to combine identifiable filter with property based filter and expect the *rootJunction* to be applied.
+It is also possible to combine the identifiable filter with property-based filter and expect the *rootJunction* to be applied.
 
     /api/dataElements.json?filter=identifiable:token:ANC visit&filter=displayName:ilike:tt1
-
+    
     /api/dataElements.json?filter=identifiable:token:ANC visit
       &filter=displayName:ilike:tt1&rootJunction=OR
+
+### Capture Scope filter
+
+In addition to the filtering mentioned above, we have a special filtering query parameter named *restrictToCaptureScope*. If *restrictToCaptureScope* is set to true, only those metadata objects that are either unassigned to any organisation units or those that are assigned explicitly to the logged in users capture scope org units will be returned in the response. This filtering parameter can be used for any metadata that has organisation units association with it.
+
+A special case exists for CategoryOptions api endpoint. In addition to filtering the metadata object lists, an additional filtering of the associated organisation units to only include the capture scoped organisation units will be done. Note that this second level of filtering only applies for CategoryOptions metadata.
+
+Some examples
+
+    /api/categoryOptions.json?restrictToCaptureScope=true&fields=*
+    
+    /api/programs.json?restrictToCaptureScope=true&fields=*
+
+All existing filters will work in addition to the capture scope filter.
+
+    /api/categoryOptions.json?restrictToCaptureScope=true&fields=*&filter=displayName:ilike:11
 
 ## Metadata field filter
 
 <!--DHIS2-SECTION-ID:webapi_metadata_field_filter-->
 
-In many situations the default views of the metadata can be too
+In many situations, the default views of the metadata can be too
 verbose. A client might only need a few fields from each object and want
 to remove unnecessary fields from the response. To discover which fields
 are available for each object please see the *schema* section.
@@ -1081,7 +1095,7 @@ The format for include/exclude allows for infinite recursion. To filter
 at the "root" level you can just use the name of the field, 
 i.e. `?fields=id,name` which would only display the `id` and
 `name` fields for every object. For objects that are either collections or
-complex objects with properties on their own you can use the format
+complex objects with properties on their own, you can use the format
 `?fields=id,name,dataSets[id,name]` which would return `id`, `name` of
 the root, and the `id` and `name` of every data set on that object.
 Negation can be done with the exclamation operator, and we have a set of
@@ -1127,7 +1141,7 @@ using the `:` operator.
 </tr>
 <tr class="odd">
 <td>!&lt;field-name&gt;, &lt;object&gt;[!&lt;field-name&gt;</td>
-<td>Do not include this field name, also works inside objects/collections. Useful when you use a preset to include fields.</td>
+<td>Do not include this field name, it also works inside objects/collections. Useful when you use a preset to include fields.</td>
 </tr>
 <tr class="even">
 <td>*, &lt;object&gt;[*]</td>
@@ -1135,7 +1149,7 @@ using the `:` operator.
 </tr>
 <tr class="odd">
 <td>:&lt;preset&gt;</td>
-<td>Alias to select multiple fields. Three presets are currently available, see table below for descriptions.</td>
+<td>Alias to select multiple fields. Three presets are currently available, see the table below for descriptions.</td>
 </tr>
 </tbody>
 </table>
@@ -1171,11 +1185,11 @@ using the `:` operator.
 </tr>
 <tr class="odd">
 <td>persisted</td>
-<td>Returns all persisted property on a object, does not take into consideration if the object is the owner of the relation.</td>
+<td>Returns all persisted property on an object, does not take into consideration if the object is the owner of the relation.</td>
 </tr>
 <tr class="even">
 <td>owner</td>
-<td>Returns all persisted property on a object where the object is the owner of all properties, this payload can be used to update through the API.</td>
+<td>Returns all persisted property on an object where the object is the owner of all properties, this payload can be used to update through the API.</td>
 </tr>
 </tbody>
 </table>
@@ -1197,7 +1211,7 @@ using the `:` operator.
 <!--DHIS2-SECTION-ID:webapi_field_transformers-->
 
 In DHIS2.17 we introduced field transformers, the idea is to allow
-further customization of the properties on the server side.
+further customization of the properties on the server-side.
 
     /api/dataElements/ID?fields=id~rename(i),name~rename(n)
 
@@ -1250,7 +1264,7 @@ Multiple transformers can be used by repeating the transformer syntax:
 <tr class="even">
 <td>pluck</td>
 <td>Optional Arg1: fieldName</td>
-<td>Converts an array of objects to an array of a selected field of that object. By default the first field that is returned by the collection is used (normally the ID).</td>
+<td>Converts an array of objects to an array of a selected field of that object. By default, the first field that is returned by the collection is used (normally the ID).</td>
 </tr>
 </tbody>
 </table>
@@ -1288,7 +1302,7 @@ All metadata entities in DHIS2 have their own API endpoint which supports
 follows this format:
 
     /api/<entityName>
-    
+
 The _entityName_ uses the camel-case notation. As an example, the endpoint
 for _data elements_ is:
 
@@ -1331,7 +1345,7 @@ The following request query parameters are available across all metadata endpoin
 <td>enum</td>
 <td>false</td>
 <td>REPLACE, MERGE</td>
-<td>Strategy for merging of objects when doing updates. REPLACE will just overwrite the property with the new value provided, MERGE will only set the property if its not null (only if the property was provided).</td>
+<td>Strategy for merging of objects when doing updates. REPLACE will just overwrite the property with the new value provided, MERGE will only set the property if it is not null (only if the property was provided).</td>
 </tr>
 </tbody>
 </table>
@@ -1342,7 +1356,7 @@ The following request query parameters are available across all metadata endpoin
 
 For creating new objects you will need to know the endpoint, the type
 format, and make sure that you have the required authorities. As an
-example , we will create and update an *constant*. To figure out the
+example, we will create and update a *constant*. To figure out the
 format, we can use the new *schema* endpoint for getting format
 description. So we will start with getting that info:
 
@@ -1350,7 +1364,7 @@ description. So we will start with getting that info:
 
 From the output, you can see that the required authorities for create
 are `F_CONSTANT_ADD`, and the important properties are: *name* and
-*value*. From this we can create a JSON payload and save it as a file
+*value*. From this, we can create a JSON payload and save it as a file
 called constant.json:
 
 ```json
@@ -1368,7 +1382,7 @@ The same content as an XML payload:
 </constant>
 ```
 
-We are now ready create the new *constant* by sending a POST request to
+We are now ready to create the new *constant* by sending a POST request to
 the *constants*endpoint with the JSON payload using curl:
 
 ```bash
@@ -1412,8 +1426,8 @@ curl -X PUT -d @pi.json -H "Content-Type: application/json"
 
 <!--DHIS2-SECTION-ID:webapi_deleting_objects-->
 
-Deleting objects are very straight forward, you will need to know the
-*ID* and the endpoint of the type you want delete, let's continue our
+Deleting objects is very straight forward, you will need to know the
+*ID* and the endpoint of the type you want to delete, let's continue our
 example from the last section and use a *constant*. Let's assume that
 the id is *abc123*, then all you need to do is the send the DELETE
 request to the endpoint + id:
@@ -1624,7 +1638,7 @@ This section explains the metatada API which is available at
 The most common parameters are described below in the "Export Parameter"
 table. You can also apply this to all available types by using
 `type:fields=<filter>` and `type:filter=<filter>`. You can also
-enable/disable export of certain types by setting `type=true|false`.
+enable/disable the export of certain types by setting `type=true|false`.
 
 <table>
 <caption>Export Parameter</caption>
@@ -1713,7 +1727,7 @@ Export data elements and indicators where name starts with "ANC":
 
 <!--DHIS2-SECTION-ID:webapi_dataset_program_export_dependencies-->
 
-When you want to exhchange metadata for a data set, program or category combo
+When you want to exchange metadata for a data set, program or category combo
 from one DHIS2 instance to another instance there are three dedicated endpoints available:
 
 ```
@@ -1954,7 +1968,7 @@ ignored:
     "total": 3
   }
 }
-``` 
+```
 
 ## Metadata audit
 
@@ -2117,7 +2131,7 @@ configuration, which will be shown in a second table.
 Since handling the default rendering of data elements and tracked entity
 attributes are depending on the value type of the object, there is also
 a DEFAULT type to tell the client it should be handled as normal.
-Program Stage Section are LISTING as default.
+Program Stage Section is LISTING as default.
 
 <table>
 <caption>RenderingTypes allowed based on value types</caption>
@@ -2262,7 +2276,7 @@ For data element and tracked entity attribute:
 }
 ```
 
-## Object Style (Experimental)
+## Object Style
 
 <!--DHIS2-SECTION-ID:webapi_object_style-->
 
@@ -2298,9 +2312,9 @@ currently supported by style is as follows:
 </tbody>
 </table>
 
-Currently there is no official list or support for icon-libraries, so
+Currently, there is no official list or support for icon-libraries, so
 this is currently up to the client to provide. The following list shows
-all objects that supports style:
+all objects that support style:
 
   - Data element
 
@@ -2345,8 +2359,8 @@ following payload to change the style:
 <!--DHIS2-SECTION-ID:webapi_amqp_integration-->
 
 By default DHIS2 will start up an embedded instance of ActiveMQ Artemis when the
-instance is booting up. For most use-cases you do not need to configure anything
-to make use of this, but if you infrastructure have an existing AMQP 1.0 compliant
+instance is booting up. For most use-cases, you do not need to configure anything
+to make use of this, but if your infrastructure have an existing AMQP 1.0 compliant
 service you want to use, you can change the defaults in your *dhis.conf* file using
 the keys in the table down below.
 
@@ -2410,7 +2424,7 @@ the keys in the table down below.
 
 DHIS2 supports import of metadata in the CSV format, such as data elements, organisation units and validation rules. Properties for the various metadata objects are identified based on the column order/column index (see below for details). You can omit non-required object properties/columns, but since the column order is significant, an empty column must be included. In other words, if you would like to specify properties/columns which appear late in the column order but not specify certain columns which appear early in the order you can include empty/blank columns for them.
 
-The first row of the CSV file is considered to be a header and is ignored during import. The _comma_ character should be used as text delimiter. Text which contains commas must be enclosed in _double quotes_.
+The first row of the CSV file is considered to be a header and is ignored during import. The _comma_ character should be used as a text delimiter. Text which contains commas must be enclosed in _double quotes_.
 
 To upload metadata in CSV format you can make a POST request to the metadata endpoint:
 
@@ -3123,7 +3137,7 @@ To add OptionGroups to an imported OptionGroupSet, follow the steps as importing
 ### Collection membership
 
 In addition to importing objects, you can also choose to only import the
-group-member relationship between an object and group. Currently the
+group-member relationship between an object and a group. Currently, the
 following group and object pairs are supported
 
   - Organisation Unit Group - Organisation Unit
@@ -3207,7 +3221,7 @@ The CSV format for these imports are the same
 <td>UID</td>
 <td>No</td>
 <td>UID</td>
-<td>Stable identifier. Max 11 char. Will be generated by system if not specified.</td>
+<td>Stable identifier. Max 11 chars. Will be generated by system if not specified.</td>
 </tr>
 <tr class="odd">
 <td>3</td>
@@ -3226,7 +3240,7 @@ The CSV format for these imports are the same
 </tbody>
 </table>
 
-An example for category options looks like this:
+An example of category options looks like this:
 
 ```csv
 name,uid,code,shortname
@@ -3243,7 +3257,7 @@ deleted.
 
     /api/deletedObjects
 
-Whenever a object of type metadata is deleted, a log is being kept of
+Whenever an object of type metadata is deleted, a log is being kept of
 the uid, code, the type and the time of when it was deleted. This API is
 available at `/api/deletedObjects` field filtering and object filtering
 works similarly to other metadata resources.
@@ -3326,7 +3340,7 @@ stored elsewhere and is retrievable using the contained reference
 
     /api/fileResources
 
-The contents of a file resources is not directly accessible but is
+The contents of file resources are not directly accessible but are
 referenced from other objects (such as data values) to store binary
 content of virtually unlimited size.
 
@@ -3371,9 +3385,9 @@ a `response` field which in turn contains the `fileResource` like this:
 
 Note that the response is a *202 Accepted*, indicating that the returned
 resource has been submitted for background processing (persisting to the
-external file store in this case). Also note the `storageStatus` field
+external file store in this case). Also, note the `storageStatus` field
 which indicates whether the contents have been stored or not. At this
-point the persistence to the external store is not yet finished (it is
+point, the persistence to the external store is not yet finished (it is
 likely being uploaded to a cloud-based store somewhere) as seen by the
 `PENDING` status.
 
@@ -3410,6 +3424,35 @@ response of the above example.
 
   - File resource objects are *immutable*, meaning modification is not
     allowed and requires creating a completely new resource instead.
+
+### File resource blocklist
+
+Certain types of files are blocked from being uploaded for security reasons.
+
+The following content types are blocked.
+
+| Content type | Content type |
+| ------------------------------------- | ---- |
+| text/html                             | application/x-ms-dos-executable |
+| text/css                              | application/vnd.microsoft.portable-executable |
+| text/javascript                       | application/vnd.apple.installer+xml |
+| font/otf                              | application/vnd.mozilla.xul+xml |
+| application/x-shockwave-flash         | application/x-httpd-php  |
+| application/vnd.debian.binary-package | application/x-sh |
+| application/x-rpm                     | application/x-csh |
+| application/java-archive              |  |
+
+The following file extensions are blocked.
+
+| File extension | File extension | File extension |
+| ---- | ---- | ---- |
+| html | deb  | xul  |
+| htm  | rpm  | php  |
+| css  | jar  | bin  |
+| js   | jsp  | sh   |
+| mjs  | exe  | csh  |
+| otf  | msi  | bat  |
+| swf  | mpkg |      |
 
 ## Metadata versioning
 
@@ -3520,7 +3563,7 @@ Response:
 </tbody>
 </table>
 
-### Get list of all metadata versions
+### Get the list of all metadata versions
 
 <!--DHIS2-SECTION-ID:webapi_get_list_of_metadata_versions-->
 
@@ -3631,7 +3674,7 @@ two types of metadata.
 
 > **Note**
 >
-> It's recommended to have ATOMIC type of versions to ensure that all
+> It's recommended to have an ATOMIC type of versions to ensure that all
 > systems (central and local) have the same metadata. Any missing
 > reference is caught in the validation phase itself. Please see the
 > importer details for a full explanation.
@@ -3750,7 +3793,7 @@ Response:
 This section explains the Metadata Synchronization API available
 starting 2.24
 
-  - `/api/metadata/sync`: This endpoint performs a metadata sync of the
+  - `/api/metadata/sync`: This endpoint performs metadata sync of the
     version name passed in the query parameter by downloading and
     importing the specified version from the remote server as defined in
     the settings app.
@@ -3788,7 +3831,7 @@ starting 2.24
     versions which have failed from the metadata sync scheduler. Due to
     its dependence on the given metadata version number, care should be
     taken for the order in which this gets invoked. E.g. If this api is
-    used to sync some higher version from central instance, then the
+    used to sync some higher version from the central instance, then the
     sync might fail as the metadata dependencies are not present in the
     local instance.
 
@@ -3797,7 +3840,7 @@ starting 2.24
     instance, the scheduler will start syncing metadata from
     `Version_16`. So the local instance will not have the metadata
     versions between `Version_12` and `Version_15`. You need to manually
-    sync the missing versions using this endpoints only.
+    sync the missing versions using these endpoints only.
 
 ### Sync metadata version
 
@@ -3824,7 +3867,7 @@ This section is about sending and reading data values.
 <!--DHIS2-SECTION-ID:webapi_sending_data_values-->
 
 A common use-case for system integration is the need to send a set of
-data values from a third-party system into DHIS. In this example we will
+data values from a third-party system into DHIS. In this example, we will
 use the DHIS2 demo on `http://play.dhis2.org/demo` as basis. We assume
 that we have collected case-based data using a simple software client
 running on mobile phones for the *Mortality <5 years* data set in the
@@ -3898,7 +3941,7 @@ CSV is supported in this format:
 >
 > Please refer to the date and period section above for time formats.
 
-From the example we can see that we need to identify the period, the
+From the example, we can see that we need to identify the period, the
 data set, the org unit (facility) and the data elements for which to
 report.
 
@@ -3913,12 +3956,12 @@ elements. For brevity we will only report on three data elements:
 *Cholera* with id `eY5ehpbEsB7`.
 
 What remains is to get hold of the identifier of the organisation
-unit. The *dataSet* representation conveniently provides link to organisation
+unit. The *dataSet* representation conveniently provides a link to organisation
 units which report on it so we search for *Ngelehun CHC* and follow the
 link to the HTML representation at `/api/organisationUnits/DiszpKrYNg8`, which
 tells us that the identifier of this org unit is `DiszpKrYNg8`.
 
-From our case-based data we assume that we have 12 cases of measles, 14
+From our case-based data, we assume that we have 12 cases of measles, 14
 cases of dysentery and 16 cases of cholera. We have now gathered enough
 information to be able to put together the XML data value set
 message:
@@ -3958,7 +4001,7 @@ In JSON format:
 ```
 
 To perform functional testing we will use the _curl_ tool which provides
-an easy way of transferring data using HTTP. First we save the data
+an easy way of transferring data using HTTP. First, we save the data
 value set XML content in a file called `datavalueset.xml`. From the
 directory where this file resides we invoke the following from the
 command line:
@@ -4092,7 +4135,7 @@ This message tells us that 3 data values were imported, 1 data value was
 updated while zero data values were ignored. The single update comes as
 a result of us sending that data value in the previous example. A data
 value will be ignored if it references a non-existing data element,
-period, org unit or data set. In our case this single ignored value was
+period, org unit or data set. In our case, this single ignored value was
 caused by the last data value having an invalid reference to org unit.
 The data set complete element will display the date of which the data
 value set was completed, or false if no data element attribute was
@@ -4188,7 +4231,7 @@ parameters.
 </dataValueSet>
 ```
 
-Note that the `preheatCache` parameter can have huge impact for
+Note that the `preheatCache` parameter can have a huge impact on
 performance. For small import files, leaving it to false will be fast.
 For large import files which contain a large number of distinct data
 elements and organisation units, setting it to true will be orders of
@@ -4198,7 +4241,7 @@ magnitude faster.
 
 <!--DHIS2-SECTION-ID:webapi_data_values_import_requirement-->
 
-Data value import supports a set of value types. For each value type
+Data value import supports a set of value types. For each value type,
 there is a special requirement. The following table lists the edge cases
 for value types.
 
@@ -4225,8 +4268,8 @@ for value types.
 <!--DHIS2-SECTION-ID:webapi_data_values_identifier_schemes-->
 
 Regarding the id schemes, by default the identifiers used in the XML
-messages uses the DHIS2 stable object identifiers referred to as `UID`.
-In certain interoperability situations we might experience that external
+messages use the DHIS2 stable object identifiers referred to as `UID`.
+In certain interoperability situations we might experience that an external
 system decides the identifiers of the objects. In that case we can use
 the `code` property of the organisation units and other objects to set
 fixed identifiers. When importing data values we hence need to reference
@@ -4743,9 +4786,9 @@ The following query parameters are supported for this resource:
 </table>
 
 If any of the identifiers given are invalid, if the data value or
-comment are invalid or if the data is locked, the response will contain
+comment is invalid or if the data is locked, the response will contain
 the *409 Conflict* status code and descriptive text message. If the
-operation lead to a saved or updated value, *200 OK* will be returned.
+operation leads to a saved or updated value, *200 OK* will be returned.
 An example of a request looks like this:
 
 ```bash
@@ -4819,7 +4862,7 @@ It is worth noting that due to the underlying storage mechanism working
 asynchronously the file content might not be immediately ready for
 download from the `/api/dataValues/files` endpoint. This is especially true
 for large files which might require time consuming uploads happening in
-the background to a an external file store (depending on the system
+the background to an external file store (depending on the system
 configuration). Retrieving the file resource meta-data from the
 `/api/fileResources/<id>` endpoint allows checking the `storageStatus`
 of the content before attempting to download it.
@@ -4831,7 +4874,7 @@ of the content before attempting to download it.
 From version 2.20 we have included support for an international standard
 for aggregate data exchange called ADX. ADX is developed and maintained
 by the Quality Research and Public Health committee of the IHE
-(Integerating the HealthCare Enterprise). The wiki page detailing QRPH
+(Integrating the HealthCare Enterprise). The wiki page detailing QRPH
 activity can be found at
 [wiki.ihe.net](http://wiki.ihe.net/index.php?title=Quality,_Research_and_Public_Health#Current_Domain_Activities).
 ADX is still under active development and has now been published for
@@ -4891,14 +4934,14 @@ Unlike dxf2, adx requires that the datavalues are grouped according to
 orgUnit, period and dataSet. The example above shows a data report for
 the "(TB/HIV) VCCT" dataset from the online demo database. This example
 is using codes as identifiers instead of dhis2 uids. Codes are the
-preferred form of identifiier when using adx.
+preferred form of identifier when using adx.
 
 The orgUnit, period and dataSet attributes are mandatory in adx. The
 group element may contain additional attributes. In our DHIS2
 implementation any additional attributes are simply passed through to
 the underlying importer. This means that all attributes which currently
 have meaning in dxf2 (such as completeDate in the example above) can
-continue be used in adx and they will be processed in the same way.
+continue to be used in adx and they will be processed in the same way.
 
 A significant difference between adx and dxf2 is in the way that periods
 are encoded. Adx makes strict use of ISO8601 and encodes the reporting
@@ -4910,7 +4953,7 @@ flexible and allows us to support all existing period types in DHIS2
 ### ADX period definitions
 
 DHIS2 supports a limited number of periods or durations during import.
-Periods should begin with the date which the duration begins, followed by
+Periods should begin with the date in which the duration begins, followed by
 a "/" and then the duration notation as noted in the table. The
 following table details all of the ADX supported period types, along
 with examples.
@@ -4953,7 +4996,7 @@ with examples.
 <tr class="even">
 <td>Bi-monthly</td>
 <td>P2M</td>
-<td>2017-11-01/P1M</td>
+<td>2017-11-01/P2M</td>
 <td>Nov 01 2017-Dec 31 2017</td>
 </tr>
 <tr class="odd">
@@ -5003,19 +5046,19 @@ The mandatory attributes are *dataElement* and *value*. The *orgUnit* and
 at the *group* level.
 
 The most significant difference is the way that disaggregation is
-represented. DXF uses the categoryOptionCombo to indicate disaggregation
+represented. DXF uses the categoryOptionCombo to indicate the disaggregation
 of data. In adx the disaggregations (e.g. AGE_GROUP and SEX) are
 expressed explicitly as attributes. One important constraint on using
 adx is that the categories used for dataElements in the dataSet MUST
 have a code assigned to them, and further, that code must be of a form
 which is suitable for use as an XML attribute. The exact constraint on
-an XML attribute name is described in the W3C XML standard - in practice
+an XML attribute name is described in the W3C XML standard - in practice,
 this means no spaces, no non-alphanumeric characters other than '_' and
 it may not start with a letter. The example above shows examples of
 'good' category codes ('GENDER' and 'HIV_AGE').
 
 This restriction on the form of codes applies only to categories.
-Currently the convention is not enforced by DHIS2 when you are assigning
+Currently, the convention is not enforced by DHIS2 when you are assigning
 codes, but you will get an informative error message if you try to
 import adx data and the category codes are either not assigned or not
 suitable.
@@ -5038,7 +5081,7 @@ DHIS2 implementation of adx will check for the existence of a
 *categoryOptionCombo* attribute and, if it exists, it will use that it
 preference to exploded dimension attributes. Similarly, an
 *attributeOptionCombo* attribute on the *group* element will be
-processed in the legacy way. Otherwise the attributeOptionCombo can be
+processed in the legacy way. Otherwise, the attributeOptionCombo can be
 treated as exploded categories just as on the *dataValue*.
 
 In the simple example above, each of the dataElements in the dataSet
@@ -5047,7 +5090,7 @@ rectangular. This need not be the case. dataSets may contain
 dataElements with different categoryCombos, resulting in a
 *ragged-right* adx data message.
 
-### Importing data - HTTP POST
+### Importing data
 
 DHIS2 exposes an endpoint for POST adx data at `/api/dataValueSets`
 using *application/xml+adx* as content type. So, for example, the
@@ -5063,7 +5106,7 @@ Note the query parameters are the same as are used with DXF data. The
 adx endpoint should interpret all the existing DXF parameters with the
 same semantics as DXF.
 
-### Exporting data - HTTP GET
+### Exporting data
 
 DHIS2 exposes an endpoint to GET adx data sets at `/api/dataValueSets`
 using *application/xml+adx* as the accepted content type. So, for
@@ -5084,7 +5127,7 @@ assumed to be codes rather than uids.
 <!--DHIS2-SECTION-ID:webapi_program_rules-->
 
 This section is about sending and reading program rules, and explains
-the program rules data model. The program rules gives functionality to
+the program rules data model. The program rules give functionality to
 configure dynamic behaviour in the programs in DHIS2.
 
 ### Program rule model
@@ -5370,7 +5413,31 @@ programRuleVariable model.
 
 <!--DHIS2-SECTION-ID:webapi_creating_program_rules-->
 
-- TODO Coming -
+- To perform crud operations, `programRules` resource is available in API.
+
+To retrieve list of programRules you can do a GET request like this:
+
+    /api/programRules
+    
+To retrieve single programRule you can do a GET request like this:
+
+    /api/programRules/<program_rule_uid>
+    
+To save/add single programRule you can do a POST request like this:
+
+    /api/programRules/<program_rule_uid>
+    
+To update single programRule you can do a PUT request like this:
+
+    /api/programRules/<program_rule_uid>
+    
+To delete single programRule you can do a DELETE request like this:
+
+    /api/programRules/<program_rule_uid>
+    
+To retrieve description of programRule condition you can use POST and provide condition string in the POST body.
+
+    /api/programRules/condition/description?<program_rule_uid>
 
 ## Forms
 
@@ -5380,7 +5447,7 @@ To retrieve information about a form (which corresponds to a data set
 and its sections) you can interact with the `form` resource. The form
 response is accessible as XML and JSON and will provide information
 about each section (group) in the form as well as each field in the
-sections, including label and identifiers. By supplying period and
+sections, including labels and identifiers. By supplying period and
 organisation unit identifiers the form response will be populated with
 data values.
 
@@ -5483,7 +5550,7 @@ A GET request to the documents endpoint will return all documents:
 
     /api/documents
 
-A POST request to the doucuments endpoint will create a new document:
+A POST request to the documents endpoint will create a new document:
 
 ```bash
 curl -X POST -d @document.json -H "Content-type: application/json"
@@ -5531,8 +5598,8 @@ analysis will be a list of violations found using your criteria.
 
 The first path variable is an identifier referring to the data set to
 validate. XML and JSON resource representations are supported. The
-response contains violations to validation rules. This will be extended
-with more validation types in coming versions.
+response contains violations of validation rules. This will be extended
+with more validation types in the coming versions.
 
 To retrieve validation rules which are relevant for a specific data set,
 meaning validation rules with formulas where all data elements are part
@@ -5646,7 +5713,7 @@ for 3 things:
 
 1.  Generating analytics based on the stored results.
 
-2.  Persisted results that has not generated a notification, will do so,
+2.  Persisted results that have not generated a notification, will do so,
     once.
 
 3.  Keeping track of whether or not the result has generated a
@@ -5754,6 +5821,8 @@ Sample output:
 	"organisationUnitAncestorNames": "Sierra Leone / Bo / Badjia / ",
 	"periodId": "201901",
 	"periodDisplayName": "January 2019",
+	"attributeOptionComboId": "HllvX50cXC0",
+	"attributeOptionComboDisplayName": "default",
 	"importance": "MEDIUM",
 	"leftSideValue": 10.0,
 	"operator": ">",
@@ -5767,6 +5836,8 @@ Sample output:
 	"organisationUnitAncestorNames": "Sierra Leone / Bo / Badjia / ",
 	"periodId": "201901",
 	"periodDisplayName": "January 2019",
+	"attributeOptionComboId": "HllvX50cXC0",
+	"attributeOptionComboDisplayName": "default",
 	"importance": "MEDIUM",
 	"leftSideValue": 22.0,
 	"operator": "<=",
@@ -5950,17 +6021,17 @@ expressions are described in the following table.
 <td>Refers to the total value of an aggregate data element across all category option combinations.</td>
 </tr>
 <tr class="even">
-<td>D{&lt;program-id&gt;.&lt;dataelement-id&gt;</td>
+<td>D{&lt;program-id&gt;.&lt;dataelement-id&gt;}</td>
 <td>Program data element</td>
 <td>Refers to the value of a tracker data element within a program.</td>
 </tr>
 <tr class="odd">
-<td>A{&lt;program-id&gt;.&lt;attribute-id&gt;</td>
+<td>A{&lt;program-id&gt;.&lt;attribute-id&gt;}</td>
 <td>Program tracked entity attribute</td>
 <td>Refers to the value of a tracked entity attribute within a program.</td>
 </tr>
 <tr class="even">
-<td>I{program-indicator-id&gt;</td>
+<td>I{&lt;program-indicator-id&gt;}</td>
 <td>Program indicator</td>
 <td>Refers to the value of a program indicator.</td>
 </tr>
@@ -6096,7 +6167,7 @@ A corresponding example looks like
 
 Expressions are mathematical formulas which can contain references to
 data elements, constants and organisation unit groups. To validate and
-get the textual description of an expression you can make a GET request
+get the textual description of an expression, you can make a GET request
 to the expressions resource:
 
     /api/expressions/description?expression=<expression-string>
@@ -6451,7 +6522,7 @@ To get approval information for a data set you can issue a GET request:
 
 > **Note**
 >
-> For backwards compatibility, the parameter `ds` for data set may be given instead of `wf` for workflow in this and other data approval requests as described below. If the data set is given, the workflow associated with that data set will be used.
+> For backward compatibility, the parameter `ds` for data set may be given instead of `wf` for workflow in this and other data approval requests as described below. If the data set is given, the workflow associated with that data set will be used.
 
 This will produce a response similar to this:
 
@@ -6642,13 +6713,13 @@ The returned fields are described in the table below.
 <!--DHIS2-SECTION-ID:webapi_data_approval_approve_data-->
 
 To approve data you can issue a *POST* request to the *dataApprovals*
-resource. To un-approve data you can issue a *DELETE* request to the
+resource. To un-approve data, you can issue a *DELETE* request to the
 dataApprovals resource.
 
     POST DELETE /api/33/dataApprovals
 
 To accept data that is already approved you can issue a *POST* request
-to the *dataAcceptances* resource. To un-accept data you can issue a
+to the *dataAcceptances* resource. To un-accept data, you can issue a
 *DELETE* request to the *dataAcceptances* resource.
 
     POST DELETE /api/33/dataAcceptances
@@ -6762,7 +6833,7 @@ can make a GET request similar to this:
 
 <!--DHIS2-SECTION-ID:webapi_auditing-->
 
-DHIS2 does automatic auditing on all update and deletions of aggregate
+DHIS2 does automatic auditing on all updates and deletions of aggregate
 data values, tracked entity data values, tracked entity attribute
 values, and data approvals. This section explains how to fetch this
 data.
@@ -7160,7 +7231,7 @@ Get all audits for data approval workflow RwNpkAM7Hw7:
 <!--DHIS2-SECTION-ID:webapi_message_conversations-->
 
 DHIS2 features a mechanism for sending messages for purposes such as
-user feedback, notifications and general information to users. Messages
+user feedback, notifications, and general information to users. Messages
 are grouped into conversations. To interact with message conversations
 you can send POST and GET request to the *messageConversations*
 resource.
@@ -7168,11 +7239,11 @@ resource.
     /api/33/messageConversations
 
 Messages are delivered to the DHIS2 message inbox but can also be sent
-to the user's email addresses and mobile phones as SMS. In this example
+to the user's email addresses and mobile phones as SMS. In this example,
 we will see how we can utilize the Web API to send, read and manage
 messages. We will pretend to be the *DHIS2 Administrator* user and send
 a message to the *Mobile* user. We will then pretend to be the mobile
-user and read our new message. Following this we will manage the admin
+user and read our new message. Following this, we will manage the admin
 user inbox by marking and removing messages.
 
 ### Writing and reading messages
@@ -7248,7 +7319,7 @@ whether she has reported data for January 2014:
 ```
 
 To test this we save the XML content into a file called *message.xml*.
-We use cURL to dispatch the message the the DHIS2 demo instance where we
+We use cURL to dispatch the message the DHIS2 demo instance where we
 indicate that the content-type is XML and authenticate as the *admin*
 user:
 
@@ -7257,7 +7328,7 @@ curl -d @message.xml "https://play.dhis2.org/demo/api/messageConversations"
   -H "Content-Type:application/xml" -u admin:district -X POST
 ```
 
-A corresponding payload in JSON and POST command look like this:
+A corresponding payload in JSON and POST command looks like this:
 
 ```json
 {
@@ -7289,7 +7360,7 @@ curl -d @message.json "https://play.dhis2.org/demo/api/33/messageConversations"
   -H "Content-Type:application/json" -u admin:district -X POST
 ```
 
-If all is well we receive a *201 Created* HTTP status code. Also note
+If all is well we receive a *201 Created* HTTP status code. Also, note
 that we receive a *Location* HTTP header which value informs us of the
 URL of the newly created message conversation resource - this can be
 used by a consumer to perform further action.
@@ -7317,7 +7388,7 @@ In response we get the following XML:
 </messageConversations>
 ```
 
-From the response we are able to read the identifier of the newly sent
+From the response, we are able to read the identifier of the newly sent
 message which is *ZjHHSjyyeJ2*. Note that the link to the specific
 resource is embedded and can be followed in order to read the full
 message. We can reply directly to an existing message conversation once we know
@@ -7336,7 +7407,7 @@ In 2.30 we added an URL search parameter:
 
     queryString=?&queryOperator=?
 
-The filter searches for matches in subject, text and senders for message 
+The filter searches for matches in subject, text, and senders for message 
 conversations. The default query operator is *token*, however other operators 
 can be defined in the query.
 
@@ -7346,7 +7417,7 @@ can be defined in the query.
 
 As users receive and send messages, conversations will start to pile up
 in their inboxes, eventually becoming laborious to track. We will now
-have a look at managing a users message inbox by removing and marking
+have a look at managing a user's messages inbox by removing and marking
 conversations through the Web-API. We will do so by performing some
 maintenance in the inbox of the "DHIS Administrator" user.
 
@@ -7355,7 +7426,7 @@ sure to note that all removal operations described here only remove the
 relation between a user and a message conversation. In practical terms
 this means that we are not deleting the messages themselves (or any
 content for that matter) but are simply removing the message thread from
-the user such that it is not longer listed in the
+the user such that it is no longer listed in the
 `/api/messageConversations` resource.
 
 To remove a message conversation from a users inbox we need to issue a
@@ -7390,7 +7461,7 @@ The observant reader will already have noticed that the object returned
 on success in our example is actually a list of ids (containing a single
 entry). This is due to the endpoint also supporting batch removals. The
 request is made to the same *messageConversations* resource but follows
-slightly different semantics. For batch operations the conversation ids
+slightly different semantics. For batch operations, the conversation ids
 are given as query string parameters. The following example removes two
 separate message conversations for the current user:
 
@@ -7577,7 +7648,7 @@ The only difference between a ticket and a message is that you can give
 a status and a priority to a ticket. To set the status:
 
     POST /api/messageConversations/<uid>/status
-    
+
 To set the priority:
 
     POST /api/messageConversations/<uid>/priority
@@ -7833,7 +7904,7 @@ in the interpretation or in any comment (OR junction):
 When writing interpretations you will supply the interpretation text as
 the request body using a POST request with content type "text/plain".
 The URL pattern looks like the below, where {object-type} refers to the
-type of the object being interpreted, and {object-id} refers to the
+type of the object being interpreted and {object-id} refers to the
 identifier of the object being interpreted.
 
     /api/interpretations/{object-type}/{object-id}
@@ -7855,7 +7926,7 @@ Some valid examples for interpretations are listed below.
     /api/interpretations/eventChart/nEzXB2M9YBz
     /api/interpretations/dataSetReport/tL7eCjmDIgM
 
-As an example we will start by writing an interpretation for the chart
+As an example, we will start by writing an interpretation for the chart
 with identifier *EbRN2VIbPdV*. To write chart interpretations we will
 interact with the `/api/interpretations/chart/{chartId}` resource.
 The interpretation will be the request body. Based on this we can put
@@ -7907,7 +7978,7 @@ text as the request body using a POST request with content type
 Second, we will write a comment to the interpretation we wrote in the
 example above. By looking at the interpretation response you will see
 that a *Location* header is returned. This header tells us the URL of
-the newly created interpretation and from that we can read its
+the newly created interpretation and from that, we can read its
 identifier. This identifier is randomly generated so you will have to
 replace the one in the command below with your own. To write a comment
 we can interact with the `/api/interpretations/{id}/comments`
@@ -7988,7 +8059,7 @@ DHIS2 has several resources for data analysis. These resources include
 these resources you will retrieve information about the resource. For
 instance, by navigating to `/api/charts/R0DVGvXDUNP` the response will
 contain the name, last date of modification and so on for the chart. To
-retrieve the analytical representation, for instance a PNG
+retrieve the analytical representation, for instance, a PNG
 representation of the chart, you can append */data* to all these
 resources. For instance, by visiting `/api/charts/R0DVGvXDUNP/data` the
 system will return a PNG image of the chart.
@@ -8105,15 +8176,15 @@ representations are listed below.
 
     /api/charts/R0DVGvXDUNP/data
     /api/charts/R0DVGvXDUNP/data?date=2013-06-01
-
+    
     /api/reportTables/jIISuEWxmoI/data.html
     /api/reportTables/jIISuEWxmoI/data.html?date=2013-01-01
     /api/reportTables/FPmvWs7bn2P/data.xls
     /api/reportTables/FPmvWs7bn2P/data.pdf
-
+    
     /api/maps/DHE98Gsynpr/data
     /api/maps/DHE98Gsynpr/data?date=2013-07-01
-
+    
     /api/reports/OeJsA6K1Otx/data.pdf
     /api/reports/OeJsA6K1Otx/data.pdf?date=2014-01-01
 
@@ -8128,9 +8199,9 @@ and pivot tables.
 Please be aware that all of the code examples in this section are for
 demonstration purposes only. They should not be used as is in
 production systems. To make things simple, the credentials
-(admin/district) have been embedded into the scripts. In a real scenario
+(admin/district) have been embedded into the scripts. In a real scenario,
 you should never expose credentials in javascript as it opens a
-vulnerability to the application. In addition you would create a user
+vulnerability to the application. In addition, you would create a user
 with more minimal privileges rather than make use of a superuser to
 fetch resources for your portal.
 
@@ -8146,7 +8217,7 @@ configuration.
 
 <!--DHIS2-SECTION-ID:webapi_pivot_table_plugin-->
 
-In this example we will see how we can embed good-looking, light-weight
+In this example, we will see how we can embed good-looking, light-weight
 html pivot tables with data served from a DHIS2 back-end into a Web
 page. To accomplish this we will use the Pivot table plug-in. The
 plug-in is written in Javascript and depends on the jQuery library only.
@@ -8471,7 +8542,7 @@ columns: [{
 
 <!--DHIS2-SECTION-ID:webapi_chart_plugin-->
 
-In this example we will see how we can embed good-looking Highcharts
+In this example, we will see how we can embed good-looking Highcharts
 charts (<http://www.highcharts.com>) with data served from a DHIS2
 back-end into a Web page. To accomplish this we will use the DHIS2
 Visualizer plug-in. The plug-in is written in JavaScript and depends on
@@ -8480,7 +8551,7 @@ the jQuery library. A complete working example can be found at
 browser and view the source to see how it is set up.
 
 We start by having a look at what the complete html file could look
-like. This setup puts two charts in our web page. The first one is
+like. This setup puts two charts on our web page. The first one is
 referring to an existing chart. The second is configured inline.
 
 ```html
@@ -8837,7 +8908,7 @@ JS library only. A complete working example can be found at
 and view the source to see how it is set up.
 
 We start by having a look at what the complete html file could look
-like. This setup puts two maps in our web page. The first one is
+like. This setup puts two maps on our web page. The first one is
 referring to an existing map. The second is configured inline.
 
 ```html
@@ -9170,74 +9241,7 @@ document with the identifiers referred to in the plug-in JavaScript.
 To see a complete working example please visit
 <http://play.dhis2.org/portal/map.html>.
 
-### Creating a chart carousel with the carousel plug-in
 
-<!--DHIS2-SECTION-ID:webapi_carousel_plugin-->
-
-The chart plug-in also makes it possible to create a chart carousel
-which for instance can be used to create an attractive front page on a
-Web portal. To use the carousel we need to import a few files in the
-head section of our HTML
-    page:
-
-```html
-<link rel="stylesheet" type="text/css" href="http://dhis2-cdn.org/v213/ext/resources/css/ext-plugin-gray.css" />
-<link rel="stylesheet" type="text/css" href="https://play.dhis2.org/demo/dhis-web-commons/javascripts/ext-ux/carousel/css/carousel.css" />
-<script type="text/javascript" src="https://extjs-public.googlecode.com/svn/tags/extjs-4.0.7/release/ext-all.js"></script>
-<script type="text/javascript" src="https://play.dhis2.org/demo/dhis-web-commons/javascripts/ext-ux/carousel/Carousel.js"></script>
-<script type="text/javascript" src="https://play.dhis2.org/demo/dhis-web-commons/javascripts/plugin/plugin.js"></script>
-```
-
-The first file is the CSS stylesheet for the chart plug-in. The second
-file is the CSS stylesheet for the carousel widget. The third file is
-the Ext JavaScript framework which this plug-in depends on. The fourth
-file is the carousel plug-in JavaScript file. The fifth file is the
-chart plug-in JavaScript file. The paths in this example points at the
-DHIS2 demo site, make sure you update them to point to your own DHIS2
-installation.
-
-Please refer to the section about the chart plug-in on how to do
-authentication.
-
-To create a chart carousel we will first render the charts we want to
-include in the carousel using the method described in the chart plug-in
-section. Then we create the chart carousel itself. The charts will be
-rendered into *div* elements which all have a CSS class called *chart*.
-In the carousel configuration we can then define a *selector* expression
-which refers to those div elements like this:
-
-```javascript
-DHIS.getChart({ uid: 'R0DVGvXDUNP', el: 'chartA1', url: base });
-DHIS.getChart({ uid: 'X0CPnV6uLjR', el: 'chartA2', url: base });
-DHIS.getChart({ uid: 'j1gNXBgwKVm', el: 'chartA3', url: base });
-DHIS.getChart({ uid: 'X7PqaXfevnL', el: 'chartA4', url: base });
-
-new Ext.ux.carousel.Carousel( 'chartCarousel', {
-  autoPlay: true,
-  itemSelector: 'div.chart',
-  interval: 5,
-  showPlayButton: true
-});
-```
-
-The first argument in the configuration is the id of the div element in
-which you want to render the carousel. The *autoPlay* configuration
-option refers to whether we want the carousel to start when the user
-loads the Web page. The *interval* option defines how many seconds each
-chart should be displayed. The *showPlayButton* defines whether we want
-to render a button for the user to start and stop the carousel. Finally
-we need to insert the div elements in the body of the HTML document:
-
-```html
-<div id="chartCarousel">
-<div id="chartA1"></div>
-<div id="chartA2"></div>
-<div id="chartA3"></div>
-<div id="chartA4"></div>
-```
-
-To see a complete working example please visit
-<http://play.dhis2.org/portal/carousel.html>.
 
 ## SQL views
 
@@ -9356,10 +9360,10 @@ characters only.
 
 SQL Views of type *query* also support two system-defined variables that allow the query to access information about the user executing the view:
 
- | variable | means |
- | -------- | ----- |
- | ${_current_user_id} | the user's database id |
- | ${_current_username} | the user's username |
+| variable | means |
+| -------- | ----- |
+| ${_current_user_id} | the user's database id |
+| ${_current_username} | the user's username |
 
 Values for these variables cannot be supplied as part of the URL. They are always filled with information about the user.
 
@@ -9750,7 +9754,7 @@ The root endpoint of the API is `/api/visualizations`, and the list of current a
 </tr>
 <tr class="even">
 <td>code</td>
-<td>A custom code to identify the Visualiation.</td>
+<td>A custom code to identify the Visualization.</td>
 </tr>
 <tr class="odd">
 <td>name</td>
@@ -9758,7 +9762,7 @@ The root endpoint of the API is `/api/visualizations`, and the list of current a
 </tr>
 <tr class="even">
 <td>type</td>
-<td>The type of the Visualiation. The valid types are: COLUMN, STACKED_COLUMN, BAR, STACKED_BAR, LINE, AREA, PIE, RADAR, GAUGE, YEAR_OVER_YEAR_LINE YEAR_OVER_YEAR_COLUMN, SINGLE_VALUE, PIVOT_TABLE.</td>
+<td>The type of the Visualization. The valid types are: COLUMN, STACKED_COLUMN, BAR, STACKED_BAR, LINE, AREA, PIE, RADAR, GAUGE, YEAR_OVER_YEAR_LINE YEAR_OVER_YEAR_COLUMN, SINGLE_VALUE, PIVOT_TABLE.</td>
 </tr>
 <tr class="odd">
 <td>title</td>
@@ -9778,11 +9782,11 @@ The root endpoint of the API is `/api/visualizations`, and the list of current a
 </tr>
 <tr class="odd">
 <td>startDate</td>
-<td>The beginning date used for during the filtering.</td>
+<td>The beginning date used during the filtering.</td>
 </tr>
 <tr class="even">
 <td>endDate</td>
-<td>The ending date used for during the filtering.</td>
+<td>The ending date used during the filtering.</td>
 </tr>
 <tr class="odd">
 <td>sortOrder</td>
@@ -10393,7 +10397,7 @@ The analytics resource lets you specify a range of query parameters:
 <tr>
 <td>startDate</td>
 <td>No</td>
-<td>Start date for date range. Will be applied as a filter. Can not be used together with a period dimension or filter.</td>
+<td>Start date for a date range. Will be applied as a filter. Can not be used together with a period dimension or filter.</td>
 <td>Date</td>
 </tr>
 <tr>
@@ -10405,7 +10409,7 @@ The analytics resource lets you specify a range of query parameters:
 <tr class="even">
 <td>skipMeta</td>
 <td>No</td>
-<td>Exclude the meta data part of the response (improves performance).</td>
+<td>Exclude the metadata part of the response (improves performance).</td>
 <td>false | true</td>
 </tr>
 <tr class="odd">
@@ -10435,7 +10439,7 @@ The analytics resource lets you specify a range of query parameters:
 <tr class="odd">
 <td>tableLayout</td>
 <td>No</td>
-<td>Use plain data source or table layout for response.</td>
+<td>Use plain data source or table layout for the response.</td>
 <td>false | true</td>
 </tr>
 <tr class="even">
@@ -10483,7 +10487,7 @@ The analytics resource lets you specify a range of query parameters:
 <tr class="odd">
 <td>inputIdScheme</td>
 <td>No</td>
-<td>Identifier scheme to use for metadata items in the query request, can be identifier, code or attributes.</td>
+<td>Identifier scheme to use for metadata items in the query request, can be an identifier, code or attributes.</td>
 <td>UID | CODE | ATTRIBUTE:&lt;ID&gt;</td>
 </tr>
 <tr class="even">
@@ -10501,7 +10505,7 @@ The analytics resource lets you specify a range of query parameters:
 <tr class="even">
 <td>userOrgUnit</td>
 <td>No</td>
-<td>Explicitly define the user org units to utilize, overrides organisation units associated with current user, multiple identifiers can be separated by semi-colon.</td>
+<td>Explicitly define the user org units to utilize, overrides organisation units associated with the current user, multiple identifiers can be separated by semicolon.</td>
 <td>Organisation unit identifiers.</td>
 </tr>
 <tr class="odd">
@@ -10519,7 +10523,7 @@ The analytics resource lets you specify a range of query parameters:
 <tr class="odd">
 <td>order</td>
 <td>No</td>
-<td>Specify ordering of rows based on value.</td>
+<td>Specify the ordering of rows based on value.</td>
 <td>ASC | DESC</td>
 </tr>
 <tr class="even">
@@ -10560,13 +10564,13 @@ organisation units you can use the following URL:
       &filter=ou:O6uvpzGd5pu;lc3eMKXaEfw
 
 The *aggregationType* query parameter lets you define which aggregation
-operator should be used for the query. By default the aggregation
+operator should be used for the query. By default, the aggregation
 operator defined for data elements included in the query will be used.
-If your query does not contain any data elements, but does include data
+If your query does not contain any data elements but does include data
 element groups, the aggregation operator of the first data element in
 the first group will be used. The order of groups and data elements is
 undefined. This query parameter allows you to override the default and
-specify a specific aggregation operator. As an example you can set the
+specify a specific aggregation operator. As an example, you can set the
 aggregation operator to "count" with the following URL:
 
     /api/33/analytics?dimension=dx:fbfJHSPpUQD&dimension=pe:2014Q1&dimension=ou:O6uvpzGd5pu
@@ -10576,7 +10580,7 @@ The *measureCriteria* query parameter lets you filter out ranges of data
 records to return. You can instruct the system to return only records
 where the aggregated data value is equal, greater than, greater or
 equal, less than or less or equal to certain values. You can specify any
-number of criteria on the following format, where *critieria* and
+number of criteria on the following format, where *criteria* and
 *value* should be substituted with real values:
 
     /api/33/analytics?measureCriteria=criteria:value;criteria:value
@@ -10606,7 +10610,7 @@ will filter the analytics response. You can use it like this:
 In order to have the analytics resource generate the data in the shape
 of a ready-made table, you can provide the *tableLayout* parameter with
 true as value. Instead of generating a plain, normalized data source,
-the analytics resource will now generate the data in table layout. You
+the analytics resource will now generate the data in a table layout. You
 can use the *columns* and *rows* parameters with dimension identifiers
 separated by semi-colons as values to indicate which ones to use as
 table columns and rows. The column and rows dimensions must be present
@@ -10669,12 +10673,12 @@ identifier*, and each dimension can have a set of *dimension items*:
 <tr class="even">
 <td>Category option combinations</td>
 <td>co</td>
-<td>Category option combo identifers (omit to get all items)</td>
+<td>Category option combo identifiers  (omit to get all items)</td>
 </tr>
 <tr class="odd">
 <td>Attribute option combinations</td>
 <td>ao</td>
-<td>Category option combo identifers (omit to get all items)</td>
+<td>Category option combo identifiers (omit to get all items)</td>
 </tr>
 <tr class="even">
 <td>Categories</td>
@@ -10732,7 +10736,7 @@ group as items by using the DE_GROUP-<id> syntax:
     /api/33/analytics?dimension=dx:DE_GROUP-h9cuJOkOwY2
       &dimension=pe:201601&dimension=ou:O6uvpzGd5pu
 
-When selecting data set reporting rates, the syntax contains of a data
+When selecting data set reporting rates, the syntax contains a data
 set identifier followed by a reporting rate metric:
 
     /api/33/analytics?dimension=dx:BfMAe6Itzgt.REPORTING_RATE;BfMAe6Itzgt.ACTUAL_REPORTS
@@ -10754,13 +10758,13 @@ those by specifying the program for each attribute using the
 
 To query for organisation unit group sets and data elements you can use
 the following URL. Notice how the group set identifier is used as
-dimension identifier and the groups as dimension items:
+a dimension identifier and the groups as dimension items:
 
     /api/33/analytics?dimension=Bpx0589u8y0:oRVt7g429ZO;MAs88nJc9nL
       &dimension=pe:2016&dimension=ou:ImspTQPwCqd
 
 To query for data elements and categories you can use this URL. Use the
-category identifier as dimension identifier and the category options as
+category identifier as a dimension identifier and the category options as
 dimension items:
 
     /api/33/analytics?dimension=dx:s46m5MS0hxu;fClA2Erf6IO&dimension=pe:2016
@@ -10824,26 +10828,26 @@ below.
     above called "Date and period format" for the period format and
     available relative periods.
 
-  - For the organisation unit dimension you can specify the items to be
+  - For the organisation unit dimension, you can specify the items to be
     the organisation unit or sub-units of the organisation unit
     associated with the user currently authenticated for the request
-    using they keys `USER_ORGUNIT` or `USER_ORGUNIT_CHILDREN` as items,
+    using the keys `USER_ORGUNIT` or `USER_ORGUNIT_CHILDREN` as items,
     respectively. You can also specify organisation unit identifiers
     directly, or a combination of both.
 
-  - For the organisation unit dimension you can specify the organisation
+  - For the organisation unit dimension, you can specify the organisation
     hierarchy level and the boundary unit to use for the request on the
     format `LEVEL-<level>-<boundary-id>`; as an example
     `LEVEL-3-ImspTQPwCqd` implies all organisation units below the given
     boundary unit at level 3 in the hierarchy.
 
-  - For the organisation unit dimension the dimension items are the
+  - For the organisation unit dimension, the dimension items are the
     organisation units and their sub-hierarchy - data will be aggregated
     for all organisation units below the given organisation unit in the
     hierarchy.
 
   - You cannot specify dimension items for the category option
-    combination dimension. Instead the response will contain the items
+    combination dimension. Instead, the response will contain the items
     which are linked to the data values.
 
 ### The dx dimension
@@ -10879,7 +10883,7 @@ following data types.
 <tr class="even">
 <td>Indicator grop</td>
 <td>IN_GROUP-&lt;indicatorgroup-id&gt;</td>
-<td>Keyword followed by indicator group identifier. Will include all indicators in the group in the response.</td>
+<td>Keyword followed by an indicator group identifier. Will include all indicators in the group in the response.</td>
 <td>Aggregated data</td>
 </tr>
 <tr class="odd">
@@ -10891,13 +10895,13 @@ following data types.
 <tr class="even">
 <td>Data element group</td>
 <td>DE_GROUP-&lt;dataelementgroup-id&gt;</td>
-<td>Keyword followed by data element group identifier. Will include all data elements in the group in the response.</td>
+<td>Keyword followed by a data element group identifier. Will include all data elements in the group in the response.</td>
 <td>Aggregated data</td>
 </tr>
 <tr class="odd">
 <td>Data element operand</td>
 <td>&lt;dataelement-id&gt;.&lt;categoryoptcombo-id&gt;.&lt;attributeoptcombo-id&gt;</td>
-<td>Data element identifer followed by one or both of category option combination and attribute option combo identifier. Wildcard &quot;*&quot; symbol can be used to indicate any option combination value. The attribute option combination identifier can be completely left out.</td>
+<td>Data element identifier followed by one or both of category option combination and attribute option combo identifier. Wildcard &quot;*&quot; symbol can be used to indicate any option combination value. The attribute option combination identifier can be completely left out.</td>
 <td>Aggregate data</td>
 </tr>
 <tr class="even">
@@ -11074,7 +11078,7 @@ identifier, or if the column contains measures, the word "Value". The
 *false* if the column contains a measure (aggregated data values). The
 *name* property is similar to the column property, except it displays
 "value" in case the column contains a measure. The *type* property
-indicates the Java class type of the column values.
+indicates the Java class type of column values.
 
 The *height* and *width* properties indicate how many data columns and
 rows are contained in the response, respectively.
@@ -11113,7 +11117,7 @@ return a *409 Conflict* response and a response message looking similar to this:
 }
 ```
 
-The `httpStatus` and `httpStatusCode` field indicate the HTTP status and
+The `httpStatus` and `httpStatusCode` fields indicate the HTTP status and
 status code per the HTTP specification. The `messsage` field provides a
 human-readable description of the validation error. The `errorCode` field
 provides a machine-readable code which can be used by clients to handle
@@ -11142,6 +11146,18 @@ API are described in the table below.
 | E7117      | A data dimension 'dx' must be specified when output format is DATA_VALUE_SET |
 | E7118      | A period dimension 'pe' must be specified when output format is DATA_VALUE_SET |
 | E7119      | An organisation unit dimension 'ou' must be specified when output format is DATA_VALUE_SET |
+| E7120      | User is not allowed to view org unit |
+| E7121      | User is not allowed to read data for object |
+| E7122      | Data approval level does not exist |
+| E7123      | Current user is constrained by a dimension but has access to no dimension items |
+| E7124      | Dimension is present in query without any valid dimension options |
+| E7125      | Dimension identifier does not reference any dimension |
+| E7126      | Column must be present as dimension in query |
+| E7127      | Row must be present as dimension in query |
+| E7128      | Query result set exceeded max limit |
+| E7129      | Program is specified but does not exist |
+| E7130      | Program stage is specified but does not exist |
+| E7131      | Query failed, likely because the query timed out |
 
 ### Data value set format
 
@@ -11154,9 +11170,9 @@ dimensions. Exporting aggregated data as regular data values is useful
 for data exchange between systems when the target system contains data
 of finer granularity compared to what the destination system is storing.
 
-As an example one can specify an indicator in the target system to
+As an example, one can specify an indicator in the target system to
 summarize data for multiple data elements and import this data for a
-single data element in the destination system. As another example one
+single data element in the destination system. As another example, one
 can aggregate data collected at organisation unit level 4 in the target
 system to level 2 and import that data in the destination system.
 
@@ -11295,7 +11311,7 @@ parameters are listed in the table below.
 The *dimension* query parameter defines which dimensions (table columns)
 should be included in the response. It can optionally be constrained
 with items. The *filter* query parameter defines which items and
-dimensions (table columns) should be used as filter for the response.
+dimensions (table columns) should be used as a filter for the response.
 
 For the organisation unit dimension, the response will contain data
 associated with the organisation unit and all organisation units in the
@@ -11341,7 +11357,7 @@ responses as it can be set to *NAME* like this:
       &outputIdScheme=NAME
 
 The response from the *rawData* resource will look identical to the
-regular analytics resource; the difference is that the response contain
+regular analytics resource; the difference is that the response contains
 raw, non-aggregated data, suitable for further aggregation by
 third-party systems.
 
@@ -11354,7 +11370,7 @@ value source of the aggregated analytics response. The
 *analytics/debug/sql* resource will provide an SQL statement that
 returns the relevant content of the datavalue table. You can produce
 this SQL by doing a GET request with content type "text/html" or
-"text/plain" like below. The dimension and filter syntax is identical to
+"text/plain" like below. The dimension and filter syntax are identical to
 regular analytics queries:
 
     /api/analytics/debug/sql?dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU
@@ -11436,7 +11452,7 @@ dimensions are listed in the table below.
 
 <!--DHIS2-SECTION-ID:webapi_event_analytics_request_query_parameters-->
 
-The analytics event API let you specify a range of query parameters.
+The analytics event API lets you specify a range of query parameters.
 
 <table>
 <caption>Query parameters for both event query and aggregate analytics</caption>
@@ -12032,7 +12048,7 @@ event date, the organisation unit name, the organisation unit code and
 the organisation unit identifier appear as the first six dimensions in
 the response and will always be present. Next comes the data elements,
 person attributes and person identifiers which were specified as
-dimensions in the request, in this case the "Gender" and "Age" data
+dimensions in the request, in this case, the "Gender" and "Age" data
 element dimensions. The header section contains the identifier of the
 dimension item in the "name" property and a readable dimension
 description in the "column" property.
@@ -12089,7 +12105,7 @@ dimension item is filtered on "18" and the "Gender" item is filtered on
       &dimension=ou:O6uvpzGd5pu&dimension=oZg33kd9taw:EQ:Female&dimension=qrur9Dvnyt5:GT:50
 
 To retrieve data for fixed and relative periods instead of start and end
-date, in this case May 2016 and last 12 months, and the organisation
+date, in this case, May 2016 and last 12 months, and the organisation
 unit associated with the current user, you can use the following query:
 
     /api/33/analytics/events/aggregate/eBAyeGv0exc?dimension=pe:201605;LAST_12_MONTHS
@@ -12138,7 +12154,7 @@ of value type organisation unit you can use the `orgUnitField` parameter:
 
 #### Ranges / legend sets
 
-For aggregate queries you can specify a range / legend set for numeric
+For aggregate queries, you can specify a range / legend set for numeric
 data element and attribute dimensions. The purpose is to group the
 numeric values into ranges. As an example, instead of generating data
 for an "Age" data element for distinct years, you can group the
@@ -12262,7 +12278,7 @@ event data. A request looks like this:
       &dimension=ou:LEVEL-2&clusterSize=100000
       &bbox=-13.2682125,7.3721619,-10.4261178,9.904012&includeClusterPoints=false
 
-The cluster response provides the count of underlying points, the centre
+The cluster response provides the count of underlying points, the center
 point and extent of each cluster. If the `includeClusterPoints` query
 parameter is set to true, a comma-separated string with the identifiers
 of the underlying events is included. A sample response looks like this:
@@ -12388,12 +12404,23 @@ in the table below.
 | E7214      | Cluster field must be specified when bbox or cluster size are specified |
 | E7215      | Query item cannot specify both legend set and option set |
 | E7216      | Query item must be aggregateable when used in aggregate query |
+| E7217      | User is not allowed to view event analytics data |
+| E7218      | Spatial database support is not enabled |
+| E7219      | Data element must be of value type coordinate in order to be used as coordinate field |
+| E7220      | Attribute must be of value type coordinate to in order to be used as coordinate field |
+| E7221      | Coordinate field is invalid |
+| E7222      | Query item or filter is invalid |
+| E7223      | Value does not refer to a data element or attribute which are numeric and part of the program |
+| E7224      | Item identifier does not reference any data element, attribute or indicator part of the program |
+| E7225      | Program stage is mandatory for data element dimensions in enrollment analytics queries |
+| E7226      | Dimension is not a valid query item |
+| E7227      | Relationship entity type not supported |
 
 ## Enrollment analytics
 
 <!--DHIS2-SECTION-ID:webapi_enrollment_analytics-->
 
-The enrollment analytics API lets you access aggregated event data and query *enrollments with their event data* captured in DHIS2. This resource lets you retrieve data for a program based on program stages and data elements - in addition to tracked entity attributes. When querying event data for a specific programstages within each enrollment, the data element values for each program stage will be returned as one row in the response from the api. If querying a data element in a program stage that is repeatable, the newest data element value will be used for that data element in the api reponse.
+The enrollment analytics API lets you access aggregated event data and query *enrollments with their event data* captured in DHIS2. This resource lets you retrieve data for a program based on program stages and data elements - in addition to tracked entity attributes. When querying event data for a specific programstages within each enrollment, the data element values for each program stage will be returned as one row in the response from the api. If querying a data element in a program stage that is repeatable, the newest data element value will be used for that data element in the api response.
 
 ### Dimensions and items
 
@@ -12422,7 +12449,7 @@ Enrollment dimensions include data elements, attributes, organisation units and 
 <td>Data element identifiers must include the program stage when querying data for enrollments.
 
     dimension=edqlbukwRfQ.vANAXwtLwcT
-    
+
 </td>
 </tr>
 <tr>
@@ -12451,19 +12478,19 @@ The *analytics/enrollments/query* resource lets you query for captured enrollmen
 
     /api/33/analytics/enrollments/query
 
-You can specify any number of dimensions and any number of filters in a query. Dimension item identifiers can refer to any of data elements in program stages, tracked entity attributes, fixed and relative periods and organisation units. Dimensions can optionally have a query operator and a filter. Enrollment queries should be on the format described below.
+You can specify any number of dimensions and any number of filters in a query. Dimension item identifiers can refer to any of the data elements in program stages, tracked entity attributes, fixed and relative periods and organisation units. Dimensions can optionally have a query operator and a filter. Enrollment queries should be on the format described below.
 
     /api/33/analytics/enrollments/query/<program-id>?startDate=yyyy-MM-dd&endDate=yyyy-MM-dd
       &dimension=ou:<ou-id>;<ou-id>&dimension=<item-id>&dimension=<item-id>:<operator>:<filter>
 
-For example, to retrieve enrollments in the from the "Antenatal care" program from January 2019, where the "First name" is picked up from attributes, "Chronic conditions" and "Smoking" data elements are included from the first program stage, and "Hemoglobin value" from the following program stage, and only women that has "Cronic conditions" would be included, you can use the following query:
+For example, to retrieve enrollments in the from the "Antenatal care" program from January 2019, where the "First name" is picked up from attributes, "Chronic conditions" and "Smoking" data elements are included from the first program stage, and "Hemoglobin value" from the following program stage, and only women that have "Cronic conditions" would be included, you can use the following query:
 
     /api/33/analytics/enrollments/query/WSGAb5XwJ3Y.json?dimension=ou:ImspTQPwCqd
       &dimension=w75KJ2mc4zz&dimension=WZbXY0S00lP.de0FEHSIoxh:eq:1&dimension=w75KJ2mc4zz
       &dimension=WZbXY0S00lP.sWoqcoByYmD&dimension=edqlbukwRfQ.vANAXwtLwcT
       &startDate=2019-01-01&endDate=2019-01-31
 
-To retrieve enrollments in the from the "Antenatal care" program from last month (relative to the point in time the query is executed), where the "Chronic conditions" and "Smoking" data elements are included from the first program stage, and "Hemoglobin value" from the folloup program stage, only including smoking women with hemoglobin less than 20:
+To retrieve enrollments in the from the "Antenatal care" program from last month (relative to the point in time the query is executed), where the "Chronic conditions" and "Smoking" data elements are included from the first program stage, and "Hemoglobin value" from the followup program stage, only including smoking women with hemoglobin less than 20:
 
     /api/33/analytics/enrollments/query/WSGAb5XwJ3Y.json?dimension=ou:ImspTQPwCqd
       &dimension=WZbXY0S00lP.de0FEHSIoxh&dimension=w75KJ2mc4zz
@@ -12554,10 +12581,10 @@ The available operators are listed below.
 
 <!--DHIS2-SECTION-ID:webapi_enrollment_analytics_query_parameters-->
 
-The analytics enrollment query API let you specify a range of query parameters.
+The analytics enrollment query API lets you specify a range of query parameters.
 
 <table>
-<caption>Query parameters for enrollment query enpoint</caption>
+<caption>Query parameters for enrollment query endpoint</caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 11%" />
@@ -12890,7 +12917,7 @@ The default response JSON format will look similar to this:
 }
 ```
 
-The *headers* section of the response describes the content of the query result. The enrollment unique identifier, the tracked entity instance identifier, the enrollment date, the incident date, geometry, latitude, logitude, the organisation unit name and the organisation unit code appear as the first dimensions in the response and will always be present. Next comes the data elements,and tracked entity attributes which were specified as dimensions in the request, in this case the "WHOMCH Chronic conditions" and "WHOMCH smoking" data element dimensions. The header section contains the identifier of the dimension item in the "name" property and a readable dimension description in the "column" property.
+The *headers* section of the response describes the content of the query result. The enrollment unique identifier, the tracked entity instance identifier, the enrollment date, the incident date, geometry, latitude, longitude, the organisation unit name and the organisation unit code appear as the first dimensions in the response and will always be present. Next comes the data elements, and tracked entity attributes which were specified as dimensions in the request, in this case, the "WHOMCH Chronic conditions" and "WHOMCH smoking" data element dimensions. The header section contains the identifier of the dimension item in the "name" property and a readable dimension description in the "column" property.
 
 The *metaData* section, *ou* object contains the identifiers of all organisation units present in the response mapped to a string representing the hierarchy. This hierarchy string lists the identifiers of the ancestors (parents) of the organisation unit starting from the root. The *names* object contains the identifiers of all items in the response mapped to their names.
 
@@ -12907,7 +12934,7 @@ For the Program Indicator/Relationship Type link to work, the `/api/33/analytics
     /api/33/analytics/enrollments/query/<program-id>
       ?dimension=<relationshiptype-id>.<programindicator-id>
 
-For example, to retrive a list of enrollemnts from the "WHO RMNCH Tracker" program for January 2019 and display the count of Malaria Cases linked to that Enrollemnt by "Malaria case linked to person" type of relationship, you can use the following query
+For example, to retrieve a list of enrollments from the "WHO RMNCH Tracker" program for January 2019 and display the count of Malaria Cases linked to that Enrollment by "Malaria case linked to person" type of relationship, you can use the following query
 
     /api/33/analytics/enrollments/query/WSGAb5XwJ3Y.json?dimension=mxZDvSZYxlw.nFICjJluo74
       &startDate=2019-01-01&endDate=2019-01-31    
@@ -12922,7 +12949,7 @@ The org unit analytics API provides statistics on org units classified by org un
 
     GET /api/orgUnitAnalytics?ou=<org-unit-id>&ougs=<org-unit-group-set-id>
 
-The API requires at least one organisation unit and at least one organisation unit group set. Multiple org units and group sets can be provided separated by semicolon.
+The API requires at least one organisation unit and at least one organisation unit group set. Multiple org units and group sets can be provided separated by a semicolon.
 
 ### Request query parameters
 
@@ -12945,17 +12972,17 @@ The org unit analytics resource lets you specify a range of query parameters:
 <tbody>
 <tr>
 <td>ou</td>
-<td>Org unit identifiers, potentially separated by semicolon.</td>
+<td>Org unit identifiers, potentially separated by a semicolon.</td>
 <td>Yes</td>
 </tr>
 <tr>
 <td>ougs</td>
-<td>Org unit group set identifiers, potentially separated by semicolon.</td>
+<td>Org unit group set identifiers, potentially separated by a semicolon.</td>
 <td>Yes</td>
 </tr>
 <tr>
 <td>columns</td>
-<td>Org unit group set identifiers, potentially separated by semicolon. Defines which group sets are rendered as columns in table layout.</td>
+<td>Org unit group set identifiers, potentially separated by a semicolon. Defines which group sets are rendered as columns in a table layout.</td>
 <td>No</td>
 </tr>
 </tbody>
@@ -12963,11 +12990,11 @@ The org unit analytics resource lets you specify a range of query parameters:
 
 The response will contain a column for the parent org unit, columns for each org unit group set part of the request and a column for the count. The statistics include the count of org units which are part of the sub-hierarchy of the org units specified in the request. The response contains a metadata section which specifies the name of each org unit and org unit group part of the response referenced by their identifiers.
 
-The default response is normalized with a single `count` column. The response can be rendered in table layout by specifying at least one org unit group set using the `columns` query parameter.
+The default response is normalized with a single `count` column. The response can be rendered in a table layout by specifying at least one org unit group set using the `columns` query parameter.
 
 ### Response formats
 
-The org unit analytics endpoint support the following representation formats:
+The org unit analytics endpoint supports the following representation formats:
 
 - json (application/json)
 - csv (application/csv)
@@ -12989,13 +13016,22 @@ To fetch org unit analytics data in table mode with one group set rendered as co
     GET /api/orgUnitAnalytics?ou=fdc6uOvgoji;jUb8gELQApl;lc3eMKXaEfw;PMa2VCrupOd
       &ougs=J5jldMd8OHv&columns=J5jldMd8OHv
 
+### Constraints and validation
+
+The possible validation errors specifically for the org unit analytics API are described in the table below. Some errors specified for the aggregate analytics API are also relevant.
+
+| Error code | Message |
+| ---------- | ------- |
+| E7300      | At least one organisation unit must be specified |
+| E7301      | At least one organisation unit group set must be specified |
+
 ## Data set report
 
 <!--DHIS2-SECTION-ID:webapi_data_set_report-->
 
-Data set reports can be generated trough the web api using the
+Data set reports can be generated through the web api using the
 `/dataSetReport` resource. This resource generates reports on data set
-and returns the result in the form of a HTML table.
+and returns the result in the form of an HTML table.
 
     /api/33/dataSetReport
 
@@ -13059,7 +13095,7 @@ An example request to retrieve a report for a data set and org unit for 2018 loo
 
     GET /api/33/dataSetReport?ds=BfMAe6Itzgt&pe=201810&ou=ImspTQPwCqd&selectedUnitOnly=false
 
-To get a data set report with a filter you can use the `filter` parameter. In this case the filter is based on an org unit group set and two org unit groups:
+To get a data set report with a filter you can use the `filter` parameter. In this case, the filter is based on an org unit group set and two org unit groups:
 
     GET /api/33/dataSetReport?ds=BfMAe6Itzgt&pe=201810&ou=ImspTQPwCqd
       &filter=J5jldMd8OHv:RXL3lPSK8oG;tDZVQ1WtwpA
@@ -13074,7 +13110,7 @@ The data set report endpoint supports output in the following formats. You can r
 
 ### Custom forms
 
-A dedicated endpoint is available for data sets with custom HTML forms. This endpoint returns the HTML form content with content type `text/html` with data inserted into it. Note that you can use the general data set report endpoint also for data sets with custom forms; however that will return the report in JSON format as a grid. This endpoint only works for data sets with custom HTML forms.
+A dedicated endpoint is available for data sets with custom HTML forms. This endpoint returns the HTML form content with content type `text/html` with data inserted into it. Note that you can use the general data set report endpoint also for data sets with custom forms; however, that will return the report in JSON format as a grid. This endpoint only works for data sets with custom HTML forms.
 
     GET /api/33/dataSetReport/custom
 
@@ -13096,7 +13132,7 @@ properties of the push analysis. When deleting or updating a
 push analysis to be disabled, the job will also be stopped from running
 in the future.
 
-To get a HTML preview of an existing push analysis, you can do a GET
+To get an HTML preview of an existing push analysis, you can do a GET
 request to the following endpoint:
 
     /api/33/pushAnalysis/<id>/render
@@ -13107,7 +13143,7 @@ this endpoint:
     /api/33/pushAnalysis/<id>/run
 
 A push analysis consists of the following properties, where some are
-required to automaticly run push analysis jobs:
+required to automatically run push analysis jobs:
 
 <table>
 <caption>Push analysis properties</caption>
@@ -13208,7 +13244,7 @@ URL that creates a new event view of
 
     POST /api/33/dataStatistics?eventType=CHART_VIEW&favorite=LW0O27b7TdD
 
-A successful save operation returns HTTP status code 201. The table
+A successful save operation returns an HTTP status code 201. The table
 below shows the supported types of events.
 
 <table>
@@ -13362,12 +13398,12 @@ DHIS2, and by user.
 </tbody>
 </table>
 
-The API query can be used without username, and will then find the top
+The API query can be used without a username, and will then find the top
 favorites of the system.
 
     /api/33/dataStatistics/favorites?eventType=CHART_VIEW&pageSize=25&sortOrder=ASC
 
-If username is specified, the response will only contain the top favorites of that user.
+If the username is specified, the response will only contain the top favorites of that user.
 
     /api/33/dataStatistics/favorites?eventType=CHART_VIEW&pageSize=25&sortOrder=ASC&username=admin
 
@@ -13385,7 +13421,7 @@ available formats and content types are:
 
   - html (text/html)
 
-API query that requests an usage analytics response in XML
+API query that requests a usage analytics response in XML
     format:
 
     /api/33/dataStatistics.xml?startDate=2014-01-01&endDate=2016-01-01&interval=WEEK
@@ -13492,7 +13528,7 @@ DHIS2. Geospatial features are stored together with organisation units.
 The syntax for retrieving features is identical to the syntax used for
 the organisation unit dimension for the analytics resource. It is
 recommended to read up on the analytics api resource before continuing
-reading this section. You must use the GET request type, and only JSON
+to read this section. You must use the GET request type, and only JSON
 response format is supported.
 
 As an example, to retrieve geo features for all organisation units at
@@ -13501,7 +13537,7 @@ with the following URL:
 
     /api/33/geoFeatures.json?ou=ou:LEVEL-3
 
-To retrieve geo features for organisation units at level within the
+To retrieve geo features for organisation units at a level within the
 boundary of an organisation unit (e.g. at level 2) you can use this URL:
 
     /api/33/geoFeatures.json?ou=ou:LEVEL-4;O6uvpzGd5pu
@@ -13567,7 +13603,7 @@ table.
 
 ### GeoJSON
 
-To export GeoJSON, you can simple add *.geosjon* as an extension to the
+To export GeoJSON, you can simply add *.geosjon* as an extension to the
 endpoint */api/organisationUnits*, or you can use the *Accept* header
 *application/json+geojson*.
 
@@ -13588,7 +13624,7 @@ Get all features at level 3 with a boundary organisation unit:
 <!--DHIS2-SECTION-ID:webapi_generating_resource_analytics_tables-->
 
 DHIS2 features a set of generated database tables which are used as
-basis for various system functionality. These tables can be executed
+a basis for various system functionality. These tables can be executed
 immediately or scheduled to be executed at regular intervals through the
 user interface. They can also be generated through the Web API as
 explained in this section. This task is typically one for a system
@@ -13665,7 +13701,7 @@ process.
 
 <!--DHIS2-SECTION-ID:webapi_maintenance-->
 
-To perform maintenance you can interact with the *maintenance* resource. You should use *POST* or *PUT* as method for requests. The following methods are available.
+To perform maintenance you can interact with the *maintenance* resource. You should use *POST* or *PUT* as a method for requests. The following methods are available.
 
 Analytics tables clear will drop all analytics tables.
 
@@ -13770,7 +13806,7 @@ this resource:
 
 The *limit* query parameter is optional and indicates how many
 identifiers you want to be returned with the response. The default is to
-return one identifier. The response will contain a JSON object with a
+return one identifier. The response will contain a JSON object with an
 array named codes, similar to this:
 
 ```json
@@ -13853,7 +13889,7 @@ is correct you can make a *GET* request to the following resource using
     /api/33/system/ping
 
 You can detect the outcome of the authentication by inspecting the *HTTP
-status code* of the response header. The meaning of the possible status
+status code* of the response header. The meanings of the possible status
 codes are listed below. Note that this applies to Web API requests in
 general.
 
@@ -13880,7 +13916,7 @@ general.
 <tr class="even">
 <td>302</td>
 <td>Found</td>
-<td>No credentials was supplied with the request - no authentication took place</td>
+<td>No credentials were supplied with the request - no authentication took place</td>
 </tr>
 <tr class="odd">
 <td>401</td>
@@ -14134,7 +14170,7 @@ representations are supported.
 
 ### Database content locales
 
-You can retrieve and create locales for database content with GET and
+You can retrieve and create locales for the database content with GET and
 POST requests through the following resource. XML and JSON resource
 representations are supported.
 
@@ -14149,7 +14185,7 @@ translations through the Web API using the *translations* resource.
 
     /api/33/translations
 
-### Create translation
+### Create a translation
 
 You can create a translation with a POST request in JSON format:
 
@@ -14336,7 +14372,7 @@ messages.
 ### Outbound SMS service
 
 The Web API supports sending outgoing SMS using the POST method. SMS can
-be sent to a single or multiple destinations. One or more gateways need
+be sent to single or multiple destinations. One or more gateways need
 to be configured before using the service. An SMS will not be sent if
 there is no gateway configured. It needs a set of recipients and
 message text in JSON format as shown below.
@@ -14355,10 +14391,10 @@ message text in JSON format as shown below.
 
 > **Note**
 >
-> Recipients list will be partitioned if the size exceed `MAX_ALLOWED_RECIPIENTS` limit of 200.
+> Recipients list will be partitioned if the size exceeds `MAX_ALLOWED_RECIPIENTS` limit of 200.
 
 The Web API also supports a query parameter version, but the
-parametrised API can only be used for sending SMS to a single
+parameterized API can only be used for sending SMS to a single
 destination.
 
     /api/33/sms/outbound?message=text&recipient=004712341234
@@ -14623,7 +14659,7 @@ case of GenericHttpGateway to send one or more parameter as http header.
   "password": "abc123"
 }
 ```
-    
+
 #### SMPP Gateway
 
 ```json
@@ -14648,8 +14684,9 @@ case of GenericHttpGateway to send one or more parameter as http header.
 {
   "type": "http",
   "name": "Generic",
-  "configurationTemplate": "{\"to\": \"${recipients}\",\"body\": \"${text}\", \"deliveryReport\":\"${deliveryReport}\"}",
+  "configurationTemplate": "username=${username}&password=${password}&to=${recipients}&countrycode=880&message=${text$}&messageid=0",
   "useGet": false,
+  "sendUrlParameters":false,
   "contentType": "APPLICATION_JSON",
   "urlTemplate":"https://samplegateway.com/messages",
   "parameters": [
@@ -14746,6 +14783,11 @@ In generic http gateway any number of parameters can be added.
 <td>Boolean</td>
 <td>If parameter is confidential. This parameter will not be exposed through API</td>
 </tr>
+<tr class="odd">
+<td>sendUrlParameters</td>
+<td>Boolean</td>
+<td>If this flag is checked then urlTemplate can be appended with query parameters. This is usefull if gateway API only support HTTP GET. Sample urlTemplate looks like this "urlTemplate":"https://samplegateway.com/messages?apiKey={apiKey}&to={recipients},content={text},deliveryreport={dp}"</td>
+</tr>
 </tbody>
 </table>
 
@@ -14778,21 +14820,29 @@ One particular command can be deleted using DELETE.
 
     DELETE /api/smsCommands/uid
 
-#### SMS command parser types
+#### SMS command types
 
-  - KEY_VALUE_PARSER
+| Type | Usage |
+|---|---|
+|KEY_VALUE_PARSER | For aggregate data collection.|
+|ALERT_PARSER | To send alert messages.|
+|UNREGISTERED_PARSER | For disease surveillance case reporting.|
+|TRACKED_ENTITY_REGISTRATION_PARSER | For tracker entity registration.|
+|PROGRAM_STAGE_DATAENTRY_PARSER | Data collection for program stage. ( TEI is identified based on phoneNumner )|
+|EVENT_REGISTRATION_PARSER | Registration of single event. This is used for event programs.|
 
-  - J2ME_PARSER
+#### SMS command types for Android
 
-  - ALERT_PARSER
+These command types can be used by the Android app for data submission via SMS when internet is unavailable. The SMS is composed by the Android app.
 
-  - UNREGISTERED_PARSER
-
-  - TRACKED_ENTITY_REGISTRATION_PARSER
-
-  - PROGRAM_STAGE_DATAENTRY_PARSER
-
-  - EVENT_REGISTRATION_PARSER
+| Type | Usage |
+|---|---|
+|AGGREGATE_DATASET | For aggregate data collection.|
+|ENROLLMENT | For tracker entity registration.|
+|TRACKER_EVENT | Event registration for tracker programs.|
+|SIMPLE_EVENT | Event registration for event programs.|
+|RELATIONSHIP | To create relationships.|
+|DELETE | To delete event.|
 
 ## Program Messages
 
@@ -15126,34 +15176,105 @@ user:
 
     /api/33/users?query=konan&authSubset=true&pageSize=10
 
-### User credentials query
+### User lookup
 
-<!--DHIS2-SECTION-ID:webapi_users_credentials_query-->
+The user lookup API provides an endpoint for retrieving users where the
+response contains a minimal set of information. It does not require a 
+specific authority and is suitable  for allowing clients to look up information 
+such as user first and surname,  without exposing potentially sensitive 
+user information.
 
-An alternative to the previous user query, is to directly query the user
-credentials (the part where username, etc., resides) using
-*/api/userCredentials* endpoint, it supports all regular field and
-object filters as the other endpoints.
+```
+/api/userLookup
+```
 
-Get user credentials where username is admin:
+The user lookup endpoint has two methods.
 
-    /api/33/userCredentials?filter=username:eq:admin
+#### User lookup by identifier
 
-Get username and code from all user credentials where username starts
-with
-    *adm*:
+You can do a user lookup by identifier using the following API request.
 
-    /api/33/userCredentials?fields=username,code&filter=username:^like:adm
+```
+GET /api/userLookup/{id}
+```
+
+The user `id` will be matched against the following user properties
+in the specified order:
+
+- UID
+- UUID
+- username
+
+An example request looks like this:
+
+```
+/api/userLookup/QqvaU7JjkUV
+```
+
+The response will contain minimal information about a user.
+
+```json
+{
+  "id": "QqvaU7JjkUV",
+  "username": "nkono",
+  "firstName": "Thomas",
+  "surname": "Nkono",
+  "displayName": "Thomas Nkono"
+}
+```
+
+#### User lookup query
+
+You can make a query for users using the following API request.
+
+```
+GET /api/userLookup?query={string}
+```
+
+The `query` request parameter is mandatory. The query `string` will be matched
+against the following user properties:
+
+- First name
+- Surname
+- Email
+- Username
+
+An example request looks like this:
+
+```
+/api/userLookup?query=John
+```
+
+The response will contain information about the users matching the request.
+
+```json
+{
+  "users": [
+    {
+      "id": "DXyJmlo9rge",
+      "username": "jbarnes",
+      "firstName": "John",
+      "surname": "Barnes",
+      "displayName": "John Barnes"
+    },
+    {
+      "id": "N3PZBUlN8vq",
+      "username": "jkamara",
+      "firstName": "John",
+      "surname": "Kamara",
+      "displayName": "John Kamara"
+    }
+  ]
+}
+```
 
 ### User account create and update
 
 <!--DHIS2-SECTION-ID:webapi_users_create_update-->
 
-Both creating and updating a user is supported through the API. The
-payload itself is similar to other payloads in the API, so they
-support collection references etc. A simple example payload to create
-would be, the password should be sent in plain text (remember to only
-use this on a SSL enabled server) and will be encrypted on the backend:
+Creating and updating users are supported through the API. A basic 
+payload to create a user looks like the below example. Note that the password 
+will be sent in plain text so remember to enable SSL/HTTPS for network transport.
 
 ```json
 {
@@ -15197,23 +15318,22 @@ use this on a SSL enabled server) and will be encrypted on the backend:
 ```bash
 curl -X POST -d @u.json "http://server/api/33/users" -u user:pass 
   -H "Content-Type: application/json" 
-```    
-    
+```
+
 In the user creation payload, user groups are only supported when importing 
 or *POSTing* a single user at a time. If you attempt to create more than one 
 user while specifiying user groups, you will not recieve an error and the 
 users will be created but no user groups will be assigned. This is by design 
-and is limited because of the many-to-many relationship between Users and 
-User Groups whereby User Groups is the owner of the relationship. To update 
+and is limited because of the many-to-many relationship between users and 
+user groups whereby user groups is the owner of the relationship. To update 
 or create mulitple users and their user groups, consider a program to *POST* 
-one at a time, or *POST* / import all users followed by another action to 
+one at a time, or *POST* all users followed by another action to 
 update their user groups while specifiying the new user's identifiers.
 
 After the user is created, a *Location* header is sent back with the
-newly generated ID (you can also provide your own using /api/system/id
+newly generated ID (you can also provide your own using the `/api/system/id`
 endpoint). The same payload can then be used to do updates, but remember
-to then use *PUT* instead of *POST* and the endpoint is now
-*/api/users/ID*.
+to then use *PUT* instead of *POST* and the endpoint is now `/api/users/ID`.
 
 ```bash
 curl -X PUT -d @u.json "http://server/api/33/users/ID" -u user:pass 
@@ -15235,7 +15355,9 @@ or JSON format to the invite resource. A specific username can be forced
 by defining the username in the posted entity. By omitting the username,
 the person will be able to specify it herself. The system will send out
 an invitation through email. This requires that email settings have been
-properly configured. The invite resource is useful in order to securely
+properly configured.
+
+The invite resource is useful in order to securely
 allow people to create accounts without anyone else knowing the password
 or by transferring the password in plain text. The payload to use for
 the invite is the same as for creating users. An example payload in JSON
@@ -15318,26 +15440,11 @@ out:
 
   - The user to be invited must have specified a valid email.
 
-  - The user to be invited must not be granted user roles with critical
-    authorities (see below).
-
   - If username is specified it must not be already taken by another
     existing user.
 
 If any of these requirements are not met the invite resource will return
 with a *409 Conflict* status code together with a descriptive message.
-
-The critical authorities which cannot be granted with invites include:
-
-  - ALL
-
-  - Scheduling administration
-
-  - Set system settings
-
-  - Add, update, delete and list user roles
-
-  - Add, update, delete and view SQL views
 
 ### User replication
 
@@ -15352,8 +15459,8 @@ can post a JSON payload looking like below:
 
 ```json
 {
-  "username": "replica",
-  "password": "Replica.1234"
+  "username": "user_replica",
+  "password": "SecretPassword"
 }
 ```
 
@@ -15369,7 +15476,7 @@ curl -d @replica.json "localhost/api/33/users/N3PZBUlN8vq/replica"
   -H "Content-Type:application/json" -u admin:district
 ```
 
-## Current user information and associations
+## Current user information
 
 <!--DHIS2-SECTION-ID:webapi_current_user_information-->
 
@@ -15390,10 +15497,6 @@ Gives information about currently unread messages and interpretations:
 
     /api/me/dashboard
 
-Lists all messages and interpretations in the inbox (including replies):
-
-    /api/me/inbox
-
 In order to change password, this end point can be used to validate
 newly entered password. Password validation will be done based on
 PasswordValidationRules configured in the system. This end point support
@@ -15406,12 +15509,6 @@ verify old password. Password string should be sent in POST body.
 
     /api/me/verifyPassword
 
-Gives the full profile information for current user. This endpoint
-support both *GET* to retrieve profile and *POST* to update profile (the
-exact same format is used):
-
-    /api/me/user-account
-
 Returns the set of authorities granted to the current user:
 
     /api/me/authorization
@@ -15420,26 +15517,6 @@ Returns true or false, indicating whether the current user has been
 granted the given `<auth>` authorization:
 
     /api/me/authorization/<auth>
-
-Lists all organisation units directly assigned to the user:
-
-    /api/me/organisationUnits
-
-Gives all the datasets assigned to the users organisation units, and
-their direct children. This endpoint contains all required information
-to build a form based on one of our datasets. If you want all
-descendants of your assigned organisation units, you can use the query
-parameter *includeDescendants=true* :
-
-    /api/me/dataSets
-
-Gives all the programs assigned to the users organisation units, and
-their direct children. This endpoint contains all required information
-to build a form based on one of our datasets. If you want all
-descendants of your assigned organisation units, you can use the query
-parameter *includeDescendants=true* :
-
-    /api/me/programs
 
 Gives the data approval levels which are relevant to the current user:
 
@@ -15504,17 +15581,17 @@ You can retrieve all system settings with a GET request:
 
     /api/33/systemSettings
 
-To retrieve a specific translation for given translatable key you can specify 
+To retrieve a specific translation for a given translatable key you can specify 
 a locale as query param:
 
     /api/33/systemSettings/<my-key>?locale=<my-locale>
 
-If present, the translation for given locale is returned. Otherwise, a default 
-value is returned. If no locale is specified for translatable key, user default 
-UI locale is used to fetch the correct translation. If given translation is not 
+If present, the translation for the given locale is returned. Otherwise, a default 
+value is returned. If no locale is specified for the translatable key, the user default 
+UI locale is used to fetch the correct translation. If the given translation is not 
 present, again, the default value is returned.
 
-The priority for translatable keys is following:
+The priority for translatable keys is the following:
 
     specified locale > user's default UI locale > defaut value
 
@@ -16559,19 +16636,19 @@ You can send *GET* and *POST* requests to the following specific
 resources:
 
     GET /api/33/configuration/systemId
-
+    
     GET POST DELETE /api/33/configuration/feedbackRecipients
-
+    
     GET POST DELETE /api/33/configuration/offlineOrganisationUnitLevel
-
+    
     GET POST /api/33/configuration/infrastructuralDataElements
-
+    
     GET POST /api/33/configuration/infrastructuralIndicators
-
+    
     GET POST /api/33/configuration/infrastructuralPeriodType
-
+    
     GET POST DELETE /api/33/configuration/selfRegistrationRole
-
+    
     GET POST DELETE /api/33/configuration/selfRegistrationOrgUnit
 
 For the CORS whitelist configuration you can make a POST request with an
@@ -16674,7 +16751,7 @@ server configurations* You can get XML and JSON responses through the
 You can get filtered settings based on setting type:
 
     GET /api/33/configuration/settings/filter?type=USER_SETTING
-
+    
     GET /api/33/configuration/settings/filter?type=CONFIGURATION
 
 More than one type can be
@@ -16759,7 +16836,7 @@ The Web API provides a resource which can be used to convert SVG content
 into more widely used formats such as PNG and PDF. Ideally this
 conversion should happen on the client side, but not all client side
 technologies are capable of performing this task. Currently PNG and PDF
-output formats are supported. The SVG content itself should passed with
+output formats are supported. The SVG content itself should be passed with
 a *svg* query parameter, and an optional query parameter *filename* can
 be used to specify the filename of the response attachment file. Note
 that the file extension should be omitted. For PNG you can send a *POST*
@@ -16858,7 +16935,7 @@ or a polygon as a value.
 For getting the IDs for `relationship` and `attributes` you can have a look
 at the respective resources `relationshipTypes`, `trackedEntityAttributes`.
 To create a tracked entity instance you must use the HTTP *POST* method. 
-You can post the payload the the following URL:
+You can post the payload the following URL:
 
     /api/trackedEntityInstances
 
@@ -16928,14 +17005,14 @@ an outer array like this and POST to the same resource as above:[]()
 ```
 
 The system does not allow the creation of a tracked entity instance
-(as well as enrollment and event) with an UID that was already used in
+(as well as enrollment and event) with a UID that was already used in
 the system. That means that UIDs cannot be reused.
 
 #### Updating a tracked entity instance
 
 <!--DHIS2-SECTION-ID:webapi_updating_tei-->
 
-For updating a tracked entity instance, the payload is the equal to the
+For updating a tracked entity instance, the payload is equal to the
 previous section. The difference is that you must use the HTTP *PUT*
 method for the request when sending the payload. You will also need to
 append the person identifier to the *trackedEntityInstances* resource in
@@ -17098,8 +17175,8 @@ curl -X POST -d @tei.json -H "Content-Type: application/json"
 
 <!--DHIS2-SECTION-ID:webapi_generate_tei_attributes-->
 
-Tracked entity instance attributes that is using automatic generation of
-unique values has three endpoints that is used by apps. The endpoints
+Tracked entity instance attributes that are using automatic generation of
+unique values have three endpoints that are used by apps. The endpoints
 are all used for generating and reserving values.
 
 In 2.29 we introduced TextPattern for defining and generating these
@@ -17108,7 +17185,7 @@ when upgrading to 2.29.
 
 > **Note**
 >
-> As of 2.29, all these endpoint will require you to include any
+> As of 2.29, all these endpoints will require you to include any
 > variables reported by the `requiredValues` endpoint listed as
 > required. Existing patterns, consisting of only `#`, will be upgraded
 > to the new TextPattern syntax `RANDOM(<old-pattern>)`. The RANDOM
@@ -17144,7 +17221,7 @@ variables should only be supplied if you know what you are doing.
 
 <!--DHIS2-SECTION-ID:webapi_generate_values-->
 
-Online web apps and other clients that wants to generate a value that
+Online web apps and other clients that want to generate a value that
 will be used right away can use the simple generate endpoint. This
 endpoint will generate a value that is guaranteed to be unique at the
 time of generation. The value is also guaranteed not to be reserved. As
@@ -17173,7 +17250,7 @@ adding the `?expiration=<number-of-days>` to the request.
 
 <!--DHIS2-SECTION-ID:webapi_generate_reserve_values-->
 
-The generate and reserve endpoint is used by offline clients that needs
+The generate and reserve endpoint is used by offline clients that need
 to be able to register tracked entities with unique ids. They will
 reserve a number of unique ids that this device will then use when
 registering new tracked entity instances. The endpoint is called to
@@ -17221,7 +17298,7 @@ you can override the default 60 days.
 
 ##### Reserved values
 
-Reserved values is currently not accessible trough the api, however they
+Reserved values are currently not accessible through the api, however, they
 are returned by the `generate` and `generateAndReserve` endpoints. The
 following table explains the properties of the reserved value object:
 
@@ -17268,7 +17345,7 @@ following table explains the properties of the reserved value object:
 </table>
 
 Expired reservations are removed daily. If a pattern changes, values
-that was already reserved will be accepted when storing data, even if
+that were already reserved will be accepted when storing data, even if
 they don't match the new pattern, as long as the reservation has not
 expired.
 
@@ -17292,7 +17369,7 @@ and will be furnished upon request based on the value of the `dimension` paramet
 ```bash
 curl "http://server/api/33/trackedEntityInstances/ZRyCnJ1qUXS/zDhUuAYrxNC/image?dimension=medium"
 ```
-      
+
 #### Tracked entity instance query
 
 <!--DHIS2-SECTION-ID:webapi_tracked_entity_instance_query-->
@@ -17419,7 +17496,7 @@ following table.
 </tr>
 <tr class="odd">
 <td>DESCENDANTS</td>
-<td>The selected organisation units and and all children, i.e. all organisation units in the sub-hierarchy.</td>
+<td>The selected organisation units and all children, i.e. all organisation units in the sub-hierarchy.</td>
 </tr>
 <tr class="even">
 <td>ACCESSIBLE</td>
@@ -17468,7 +17545,7 @@ descendant organisation unit query mode:
       &filter=AMpUYgxuCaE&ou=DiszpKrYNg8;yMCshbaVExv
 
 A query for instances where one attribute is included in the response
-and one attribute us used as a filter:
+and one attribute is used as a filter:
 
     /api/33/trackedEntityInstances.json?filter=zHXD5Ve1Efw:EQ:A
       &filter=AMpUYgxuCaE:LIKE:Road&ou=DiszpKrYNg8
@@ -17731,7 +17808,7 @@ and is an alternative to the query in the previous section.
 </tr>
 <tr class="even">
 <td>attribute</td>
-<td>Attributes to be included in the response. Can also be used a filter for the query. Param can be repeated any number of times. Filters can be applied to a dimension on the format &lt;attribute-id&gt;:&lt;operator&gt;:&lt;filter&gt;[:&lt;operator&gt;:&lt;filter&gt;]. Filter values are case-insensitive and can be repeated together with operator any number of times. Operators can be EQ | GT | GE | LT | LE | NE | LIKE | IN. Filters can be omitted in order to simply include the attribute in the response without any constraints.</td>
+<td>Attributes to be included in the response. Can also be used as a filter for the query. Param can be repeated any number of times. Filters can be applied to a dimension on the format &lt;attribute-id&gt;:&lt;operator&gt;:&lt;filter&gt;[:&lt;operator&gt;:&lt;filter&gt;]. Filter values are case-insensitive and can be repeated together with operator any number of times. Operators can be EQ | GT | GE | LT | LE | NE | LIKE | IN. Filters can be omitted in order to simply include the attribute in the response without any constraints.</td>
 </tr>
 <tr class="odd">
 <td>filter</td>
@@ -17782,22 +17859,26 @@ and is an alternative to the query in the previous section.
 <td>End date of event associated with the given program and event status.</td>
 </tr>
 <tr class="odd">
+<td>programStage</td>
+<td>The programStage for which the event related filters should be applied to. If not provided all stages will be considered.</td>
+</tr>
+<tr class="even">
 <td>skipMeta</td>
 <td>Indicates whether meta data for the response should be included.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>page</td>
 <td>The page number. Default page is 1.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>pageSize</td>
 <td>The page size. Default size is 50 rows per page.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>totalPages</td>
 <td>Indicates whether to include the total number of pages in the paging response (implies higher response time).</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>skipPaging</td>
 <td>Indicates whether paging should be ignored and all rows should be returned.</td>
 </tr>
@@ -17906,7 +17987,7 @@ match:
 
     /api/33/trackedEntityInstances/query.json?query=LIKE:scott&ou=DiszpKrYNg8
 
-You can query on multiple words separated by the the URL character for
+You can query on multiple words separated by the URL character for
 space which is %20, will use a logical AND query for each
     word:
 
@@ -17925,7 +18006,7 @@ descendants organisation unit query mode:
       &attribute=AMpUYgxuCaE&ou=DiszpKrYNg8;yMCshbaVExv
 
 A query for instances where one attribute is included in the response
-and one attribute us used as a
+and one attribute is used as a
     filter:
 
     /api/33/trackedEntityInstances/query.json?attribute=zHXD5Ve1Efw:EQ:A
@@ -18107,11 +18188,11 @@ can interact with the */api/trackedEntityInstanceFilters* resource.
 
     /api/33/trackedEntityInstanceFilters
 
-##### Create and update a tracked entity instance filter definiton
+##### Create and update a tracked entity instance filter definition
 
 For creating and updating a tracked entity instance filter in the
 system, you will be working with the *trackedEntityInstanceFilters*
-resource. The tracked entity instance filter defintions are used in the
+resource. The tracked entity instance filter definitions are used in the
 Tracker Capture app to display relevant predefined "Working lists" in
 the tracker user interface.
 
@@ -18162,12 +18243,12 @@ the tracker user interface.
 </tr>
 <tr class="odd">
 <td>followup</td>
-<td>When this parameter is true, the filter only returns TEIs that has an enrollment with status followup.</td>
+<td>When this parameter is true, the filter only returns TEIs that have an enrollment with status followup.</td>
 <td></td>
 </tr>
 <tr class="even">
 <td>enrollmentCreatedPeriod</td>
-<td>Period object containing a period which the enrollment must be created. See <em>Period</em> definition table below.</td>
+<td>Period object containing a period in which the enrollment must be created. See <em>Period</em> definition table below.</td>
 <td>{ &quot;periodFrom&quot;: -15, &quot;periodTo&quot;: 15}</td>
 </tr>
 <tr class="odd">
@@ -18203,7 +18284,7 @@ the tracker user interface.
 </tr>
 <tr class="even">
 <td>assignedUserMode</td>
-<td>To specify the assigned user selection mode for events. Possible values are CURRENT (events assigned to current user)| PROVIDED (events assigned to users provided in "assignedUsers" list) | NONE (events assigned to noone) | ANY (events assigned to anyone). If PROVIDED (or null), non-empty assignedUsers in the payload will be considered.</td>
+<td>To specify the assigned user selection mode for events. Possible values are CURRENT (events assigned to current user)| PROVIDED (events assigned to users provided in "assignedUsers" list) | NONE (events assigned to no one) | ANY (events assigned to anyone). If PROVIDED (or null), non-empty assignedUsers in the payload will be considered.</td>
 <td>"assignedUserMode": "PROVIDED"</td>
 </tr>
 <tr class="odd">
@@ -18301,12 +18382,12 @@ entity instance:
 
     /api/33/enrollments/<enrollment-id>/cancelled
 
-For completing a enrollment for a tracked entity instance you can make a
+For completing an enrollment for a tracked entity instance you can make a
 *PUT* request to the following URL:
 
     /api/33/enrollments/<enrollment-id>/completed
 
-For deleting a enrollment, you can make a *DELETE* request to the
+For deleting an enrollment, you can make a *DELETE* request to the
 following URL:
 
     /api/33/enrollments/<enrollment-id>
@@ -18343,7 +18424,7 @@ resource.
 </tr>
 <tr class="even">
 <td>ouMode</td>
-<td>The mode of selecting organisation units, can be SELECTED | CHILDREN | DESCENDANTS | ACCESSIBLE | CAPTURE | ALL. Default is SELECTED, which refers to the selected selected organisation units only. See table below for explanations.</td>
+<td>The mode of selecting organisation units, can be SELECTED | CHILDREN | DESCENDANTS | ACCESSIBLE | CAPTURE | ALL. Default is SELECTED, which refers to the selected organisation units only. See table below for explanations.</td>
 </tr>
 <tr class="odd">
 <td>program</td>
@@ -18799,7 +18880,7 @@ describes the meaning of each element.
 <td>string</td>
 <td>false</td>
 <td>Defaults to current user</td>
-<td>Who stored this event (can be username, system-name etc)</td>
+<td>Who stored this event (can be username, system-name, etc)</td>
 </tr>
 <tr class="odd">
 <td>coordinate</td>
@@ -18863,7 +18944,7 @@ curl -X PUT -d @updated_event.json "localhost/api/33/events/ID"
 <!--DHIS2-SECTION-ID:webapi_deleting_events-->
 
 To delete an existing event, all you need is to send a DELETE request
-with a identifier reference to the server you are using.
+with an identifier reference to the server you are using.
 
 ```bash
 curl -X DELETE "localhost/api/33/events/ID" -u admin:district
@@ -19181,7 +19262,7 @@ medium(512 x 512), large(1024 x 1024) or original*. Any value other than those m
 discarded and the original image will be returned.
 
     /api/33/events/files?eventUid=hcmcWlYkg9u&dataElementUid=C0W4aFuVm4P&dimension=small
-    
+
 Retrieve events with specified Organisation unit and Program, and use _Attribute:Gq0oWTf2DtN_ as 
 identifier scheme
     
@@ -19256,7 +19337,7 @@ can interact with the `/api/eventFilters` resource.
 
     /api/33/eventFilters
 
-##### Create and update an event filter definiton
+##### Create and update an event filter definition
 
 For creating and updating an event filter in the
 system, you will be working with the *eventFilters*
@@ -19588,7 +19669,7 @@ A sample payload that can be used to create/update an eventFilter is shown below
 A specific event filter can be retrieved by using the following api
 
     GET /api/33/eventFilters/{uid}
-    
+
 All event filters can be retrieved by using the following api.
 
     GET /api/33/eventFilters?fields=*
@@ -19607,7 +19688,7 @@ Relationships are links between two entities in tracker. These entities can be t
 There are multiple endpoints that allow you to see, create, delete and update relationships. The most common is the /api/trackedEntityInstances endpoint, where you can include relationships in the payload to create, update or deleting them if you omit them - Similar to how you work with enrollments and events in the same endpoint. All the tracker endpoints, /api/trackedEntityInstances, /api/enrollments and /api/events also list their relationships if requested in the field filter.
 
 The standard endpoint for relationships is, however, /api/relationships. This endpoint provides all the normal CRUD operations for relationships.
- 
+
 List all relationships require you to provide the UID of the trackedEntityInstance, Enrollment or event that you want to list all the relationships for:  
 
     GET /api/relationships?tei=ABCDEF12345
@@ -20281,7 +20362,7 @@ DHIS2 allows for scheduling of jobs of various types. Each type of job has diffe
 </tr>
 <tr class="odd">
 <td>jobType</td>
-<td>The job type represent which task is run. In the next table, you can get an overview of existing job types. Each job type can have a a specific set of parameters for job configuration.</td>
+<td>The job type represent which task is run. In the next table, you can get an overview of existing job types. Each job type can have a specific set of parameters for job configuration.</td>
 <td>String (Enum)</td>
 </tr>
 <tr class="even">
@@ -20600,10 +20681,15 @@ To get JSON schema for a specific class:
 <!--DHIS2-SECTION-ID:webapi_ui_customization-->
 
 To customize the UI of the DHIS2 application you can insert custom
-JavaScript and CSS styles through the *files* resource. The JavaScript
-and CSS content inserted through this resource will be loaded by the
-DHIS2 web application. This can be particularly useful in certain
-situations:
+JavaScript and CSS styles through the *files* resource. 
+
+```
+POST GET DELETE /api/33/files/script
+POST GET DELETE /api/33/files/style
+```
+
+The JavaScript and CSS content inserted through this resource will be loaded by the
+DHIS2 web application. This can be particularly useful in certain situations:
 
   - Overriding the CSS styles of the DHIS2 application, such as the
     login page or main page.
@@ -20619,7 +20705,7 @@ situations:
 <!--DHIS2-SECTION-ID:webapi_customization_javascript-->
 
 To insert Javascript from a file called *script.js* you can interact
-with the *files/script* resource with a POST-request:
+with the *files/script* resource with a POST request:
 
 ```bash
 curl --data-binary @script.js "localhost/api/33/files/script"
@@ -20631,7 +20717,7 @@ file content. You can fetch the JavaScript content with a GET request:
 
     /api/33/files/script
 
-To remove the JavaScript content you can use a DELETE-request.
+To remove the JavaScript content you can use a DELETE request.
 
 ### CSS
 
@@ -20649,7 +20735,7 @@ You can fetch the CSS content with a GET-request:
 
     /api/33/files/style
 
-To remove the JavaScript content you can use a DELETE-e "request.
+To remove the JavaScript content you can use a DELETE request.
 
 ## Synchronization
 
@@ -21115,22 +21201,22 @@ with the following request:
 
 ```json
 {
-    "object": {
-        "publicAccess": "rw------",
-        "externalAccess": false,
-        "user": {},
-        "userAccesses": [],
-        "userGroupAccesses": [
-            {
-                "id": "hj0nnsVsPLU",
-                "access": "rw------"
-            },
-            {
-                "id": "qMjBflJMOfB",
-                "access": "r-------"
-            }
-        ]
-    }
+  "object": {
+    "publicAccess": "rw------",
+    "externalAccess": false,
+    "user": {},
+    "userAccesses": [],
+    "userGroupAccesses": [
+      {
+        "id": "hj0nnsVsPLU",
+        "access": "rw------"
+      },
+      {
+        "id": "qMjBflJMOfB",
+        "access": "r-------"
+      }
+    ]
+  }
 }
 ```
 
@@ -21285,7 +21371,7 @@ curl -X POST -H "Content-Type: application/json" -u admin:district -d "['some va
 }
 ```
 
-If you require the value to be encrypted (For example user credetials
+If you require the value to be encrypted (For example user credentials
 and such) you can append a query to the url like this:
 
     GET /api/33/userDataStore/<namespace>/<key>?encrypt=true
@@ -21365,11 +21451,13 @@ curl -X DELETE -u admin:district "play.dhis2.org/api/33/userDataStore/foo"
 <!--DHIS2-SECTION-ID:webapi_predictors-->
 
 A predictor allows you to generate data values based on an expression.
-This can be used to generate targets, thresholds and estimated values.
-You can interact with predictors through the `/api/33/predictors`
-resource.
+This can be used for example to generate targets, thresholds,
+or estimated values.
 
-    /api/33/predictors
+To retrieve predictors you can make a GET request to the predictors
+resource like this:
+
+    /api/predictors
 
 ### Creating a predictor
 
@@ -21378,7 +21466,7 @@ resource.
 You can create a predictor with a POST request to the predictors
 resource:
 
-    POST /api/33/predictors
+    POST /api/predictors
 
 A sample payload looks like this:
 
@@ -21393,10 +21481,9 @@ A sample payload looks like this:
   },
   "generator": {
     "expression": "AVG(#{r6nrJANOqMw})+1.5*STDDEV(#{r6nrJANOqMw})",
-    "dataElements": [],
-    "sampleElements": [{
-      "id": "r6nrJANOqMw"
-    }]
+    "description": "Maximum normal malaria case count",
+    "missingValueStrategy": "NEVER_SKIP",
+    "slidingWindow": false
   },
   "periodType": "Monthly",
   "sequentialSampleCount": 4,
@@ -21410,6 +21497,31 @@ The output element refers to the identifier of the data element for
 which to saved predicted data values. The generator element refers to the
 expression to use when calculating the predicted values.
 
+### Predictor expressions
+
+<!--DHIS2-SECTION-ID:webapi_predictor_expressions-->
+
+A predictor always has a generator expression that describes how the
+predicted value is calculated. A predictor may also have a skip test
+expression returning a boolean value. When the skip test expression is
+present, it is evaluated in each of the sampled periods to tell whether
+values from that period should be skipped.
+
+The following variables may be used in either a generator expression
+or a skip test expression:
+
+| Variable    | Object     | Description |
+| ----------- | ---------- | ----------- |
+| #{\<dataelement-id>} | Aggregate data element | Refers to the total value of an aggregate data element across all category option combinations. |
+| #{\<dataelement-id>.\<categoryoptcombo-id> | Data element operand | Refers to a combination of an aggregate data element and a category option combination. |
+| D{\<program-id>.\<dataelement-id>} | Program data element | Refers to the value of a tracker data element within a program. |
+| A{\<program-id>.\<attribute-id>} | Program tracked entity attribute | Refers to the value of a tracked entity attribute within a program. |
+| I{\<program-indicator-id>} | Program indicator | Refers to the value of a program indicator. |
+| R{\<dataset-id>.\<metric>} | Reporting rate | Refers to a reporting rate metric. The metric can be REPORTING_RATE, REPORTING_RATE_ON_TIME, ACTUAL_REPORTS, ACTUAL_REPORTS_ON_TIME, EXPECTED_REPORTS. |
+| C{\<constant-id>} | Constant | Refers to a constant value. |
+| OUG{\<orgunitgroup-id>} | Organisation unit group | Refers to the count of organisation units within an organisation unit group. |
+| [days] | Number of days | The number of days in the current period. |
+
 ### Generating predicted values
 
 <!--DHIS2-SECTION-ID:webapi_generating_predicted_values-->
@@ -21417,12 +21529,12 @@ expression to use when calculating the predicted values.
 To run all predictors (generating predicted values) you can make a POST
 request to the run resource:
 
-    POST /api/33/predictors/run
+    POST /api/predictors/run
 
 To run a single predictor you can make a POST request to the run
 resource for a predictor:
 
-    POST /api/33/predictors/AG10KUJCrRk/run
+    POST /api/predictors/AG10KUJCrRk/run
 
 ## Min-max data elements
 
@@ -21490,7 +21602,7 @@ resource:
 You can filter the response like this:
 
     GET /api/minMaxDataElements.json?filter=dataElement.id:eq:UOlfIjgN8X6
-
+    
     GET /api/minMaxDataElements.json?filter=dataElement.id:in:[UOlfIjgN8X6,xc8gmAKfO95]
 
 The filter parameter for min-max data elements supports two operators:
@@ -21498,7 +21610,7 @@ eq and in. You can also use the `fields` query parameter.
 
     GET /api/minMaxDataElements.json?fields=:all,dataElement[id,name]
 
-### Add/Update min-max data element
+### Add/update min-max data element
 
 <!--DHIS2-SECTION-ID:webapi_add_update_min_max_data_element-->
 
@@ -21565,7 +21677,7 @@ unit. You can read lock exceptions from the following resource:
 
     /api/lockExceptions
 
-To create a new lock excecption you can use a POST request and specify
+To create a new lock exception you can use a POST request and specify
 the data set, period and organisation unit:
 
     POST /api/lockExceptions?ds=BfMAe6Itzgt&pe=201709&ou=DiszpKrYNg8
@@ -21631,7 +21743,7 @@ info.
 
 <!--DHIS2-SECTION-ID:webapi_analytics_table_hooks-->
 
-Analytics table hooks provides a mechanism for invoking SQL scripts
+Analytics table hooks provide a mechanism for invoking SQL scripts
 during different phases of the analytics table generation process. This
 is useful for customizing data in resource and analytics tables, e.g. in
 order to achieve specific logic for calculations and aggregation.

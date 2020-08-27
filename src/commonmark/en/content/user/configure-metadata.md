@@ -622,7 +622,12 @@ objects:
     about how the data element is measured and what its purpose is.
 
 8. (Optional) In the **Field mask** field, you may type a template that's used to provide
-   hints for correct formatting of the data element in Capture and Tracker Capture apps.
+   hints for correct formatting of the data element. 
+   
+     > **NOTE**
+     >
+     > So far this is only implemented in the DHIS2 Android Capture app; not in the Capture and Tracker Capture web apps.
+     
    The following are special characters that can be used in the mask. The special characters match exactly one character of the given type.
 
    | Character     |    Match       |
@@ -748,7 +753,7 @@ objects:
     </tr>
     <tr class="even">
     <td><p>Username</p></td>
-    <td><p>DHIS2 user. Rendered as a dialog with a list of users and a search field.</p></td>
+    <td><p>DHIS2 user. Rendered as a dialog with a list of users and a search field. The user will need the "View User" authority to be able to utilise this data type</p></td>
     </tr>
     <tr class="odd">
     <td><p>Yes/No</p></td>
@@ -3152,6 +3157,8 @@ The expression consists of:
 A validation rule asserting that the total number of vaccines given to
 infants is less than or equal to the total number of infants.
 
+The left and right sides must return numeric values.
+
 In the **Maintenance** app, you manage the following validation rule
 objects:
 
@@ -4814,20 +4821,20 @@ sampled. For example:
         <td><p>Sum of the sampled values of data element FTRrcoaog83 and category option combination (disaggregation) tMwM3ZBd7BN</p></td>
         </tr>
         <tr class="even">
-        <td><p>avg(#{FTRrcoaog83}) + 2 * stddevSamp(#{FTRrcoaog83})</p></td>
-        <td><p>Average of the sampled values of of data element FTRrcoaog83 (sum of all disaggregations) plus twice its sample standard deviation</p></td>
+        <td><p>avg(I{GSae40Fyppf}) + 2 * stddevSamp(I{GSae40Fyppf})</p></td>
+        <td><p>Average of the sampled values of of program indicator GSae40Fyppf plus twice its sample standard deviation</p></td>
         </tr>
         <tr class="odd">
-        <td><p>sum(#{FTRrcoaog83}) / sum([days])</p></td>
-        <td><p>Sum of all sampled values of data element FTRrcoaog83 (sum of all disaggregations) divided by the number of days in all sample periods (resulting in the overall average daily value)</p></td>
+        <td><p>sum(D{IpHINAT79UW.eMyVanycQSC}) / sum([days])</p></td>
+        <td><p>Sum of all sampled values of data element eMyVanycQSC from porgram IpHINAT79UW divided by the number of days in all sample periods (resulting in the overall average daily value)</p></td>
         </tr>
         <tr class="even">
         <td><p>sum(#{FTRrcoaog83}) + #{T7OyqQpUpNd}</p></td>
-        <td><p>Sum of all sampled values of data element FTRrcoaog83 plus the value of data element T7OyqQpUpNd in the period being predicted for</p></td>
+        <td><p>Sum of all sampled values of data element FTRrcoaog83 plus the value of data element T7OyqQpUpNd in the period being predicted for (includes all disaggregations)</p></td>
         </tr>
         <tr class="odd">
-        <td><p>1.2 * #{T7OyqQpUpNd}</p></td>
-        <td><p>1.2 times the value of data element T7OyqQpUpNd, in the period being predicted for</p></td>
+        <td><p>1.2 * A{IpHINAT79UW.RKLKz1H20EE}</p></td>
+        <td><p>1.2 times the value of attribute RKLKz1H20EE of program IpHINAT79UW, in the period being predicted for</p></td>
         </tr>
         <tr class="even">
         <td><p>if(isNull(#{T7OyqQpUpNd}), 0, 1)</p></td>

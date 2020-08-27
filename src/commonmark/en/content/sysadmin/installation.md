@@ -52,7 +52,7 @@ CPU cores so the more you can afford, the better the application will perform.
 
   - *Disk:* Ideally use an SSD. Otherwise use a 7200 rpm disk. Minimum
     read speed is 150 Mb/s, 200 Mb/s is good, 350 Mb/s or better is
-    ideal. In terms of disk space, at least 60 GB is reccomended, but
+    ideal. In terms of disk space, at least 60 GB is recommended, but
     will depend entirely on the amount of data which is contained in the
     data value tables. Analytics tables require a significant amount of
     disk space. Plan ahead and ensure that your server can be upgraded
@@ -66,7 +66,7 @@ Later DHIS2 versions require the following software versions to operate.
 
   - Java JDK or JRE version 8 or later.
 
-  - Any operating system for which a Java JDK or JRE version 8 exists.
+  - An operating system for which a Java JDK or JRE version 8 exists.
 
   - PostgreSQL database version 9.6 or later.
 
@@ -252,7 +252,7 @@ maintenance_work_mem = 512MB
 
 Determines the amount of memory PostgreSQL can use for maintenance
 operations such as creating indexes, running vacuum, adding foreign
-keys. Incresing this value might improve performance of index creation
+keys. Increasing this value might improve performance of index creation
 during the analytics generation processes.
 
 ```properties
@@ -315,16 +315,34 @@ Restart PostgreSQL by invoking the following command:
 sudo /etc/init.d/postgresql restart
 ```
 
-### System configuration
+### Java installation
+
+<!--DHIS2-SECTION-ID:install_java_installation-->
+
+The recommended Java JDK for DHIS 2 is OpenJDK 8. OpenJDK is licensed under 
+the GPL license and can be run free of charge. You can install it with the
+following command:
+
+```
+sudo apt-get install openjdk-8-jdk
+```
+
+Verify that your installation is correct by invoking:
+
+```
+java -version
+```
+
+### DHIS2 configuration
 
 <!--DHIS2-SECTION-ID:install_database_configuration-->
 
 The database connection information is provided to DHIS2 through a
-configuration file called *dhis.conf*. Create this file and save it in
-the *DHIS2\_HOME* directory. As an example this location could be:
+configuration file called `dhis.conf`. Create this file and save it in
+the `DHIS2\_HOME` directory. As an example this location could be:
 
 ```sh
-sudo -u dhis nano /home/dhis/config/dhis.conf
+/home/dhis/config/dhis.conf
 ```
 
 A configuration file for PostgreSQL corresponding to the above setup has
@@ -334,9 +352,6 @@ these properties:
 # ----------------------------------------------------------------------
 # Database connection
 # ----------------------------------------------------------------------
-
-# Hibernate SQL dialect
-connection.dialect = org.hibernate.dialect.PostgreSQLDialect
 
 # JDBC driver class
 connection.driver_class = org.postgresql.Driver
@@ -355,51 +370,31 @@ connection.password = xxxx
 # ----------------------------------------------------------------------
 
 # Enable secure settings if deployed on HTTPS, default 'off', can be 'on'
-server.https = on
+# server.https = on
 
 # Server base URL
-server.base.url = https://server.com/
+# server.base.url = https://server.com/
 ```
 
-It is strongly recommended to enable the *server.https* setting and deploying DHIS 2 over the encrypted HTTPS protocol. This setting will enable e.g. secure cookies. HTTPS deployment is required when this setting is enabled.
+It is strongly recommended to enable the `server.https` setting and deploying DHIS 2 with an encrypted HTTPS protocol. This setting will enable e.g. secure cookies. HTTPS deployment is required when this setting is enabled.
 
-The *server.base.url* setting refers to the URL at which the system is accessed by end users over the network.
+The `server.base.url` setting refers to the URL at which the system is accessed by end users over the network.
 
 Note that the configuration file supports environment variables. This
 means that you can set certain properties as environment variables and
-have them resolved by DHIS 2, e.g. like this where *DB\_PASSWD* is the
+have them resolved, e.g. like this where `DB\_PASSWD` is the
 name of the environment variable:
 
 ```properties
 connection.password = ${DB_PASSWD}
 ```
 
-
 Note that this file contains the password for your DHIS2 database in clear
 text so it needs to be protected from unauthorized access. To do this, 
-invoke the following command which ensures that only the dhis user
-which owns the file is allowed to read it:
+invoke the following command which ensures only the *dhis* user is allowed to read it:
 
 ```sh
-chmod 0600 dhis.conf
-```
-
-### Java installation
-
-<!--DHIS2-SECTION-ID:install_java_installation-->
-
-The recommended Java JDK for DHIS 2 is OpenJDK 8. OpenJDK is licensed under 
-the GPL license and can be run free of charge. You can install it with the
-following command:
-
-```
-sudo apt-get install openjdk-8-jdk
-```
-
-Verify that your installation is okay by invoking:
-
-```
-java -version
+chmod 600 dhis.conf
 ```
 
 ### Tomcat and DHIS2 installation
@@ -415,7 +410,7 @@ sudo apt-get install tomcat8-user
 
 This package lets us easily create a new Tomcat instance. The instance
 will be created in the current directory. An appropriate location is the
-home directory of the dhis user:
+home directory of the *dhis* user:
 
 ```sh
 cd /home/dhis/
@@ -442,7 +437,7 @@ export JAVA_OPTS='-Xmx7500m -Xms4000m'
 export DHIS2_HOME='/home/dhis/config'
 ```
 
-The Tomcat configiration file is located in
+The Tomcat configuration file is located in
 *tomcat-dhis/conf/server.xml*. The element which defines the connection
 to DHIS is the *Connector* element with port 8080. You can change the
 port number in the Connector element to a desired port if necessary. 
@@ -536,7 +531,7 @@ directory under the *DHIS2\_HOME* external directory location.
 
 You can also configure DHIS2 to store files on cloud-based storage
 providers. AWS S3 is the only supported provider currently. To enable
-cloud-based storage you must define the following addtional properties
+cloud-based storage you must define the following additional properties
 in your *dhis.conf* file:
 
 ```properties
@@ -561,8 +556,8 @@ filestore.secret = xxxx
 This configuration is an example reflecting the defaults and should be
 changed to fit your needs. In other words, you can omit it entirely if
 you plan to use the default values. If you want to use an external
-provider the last block of properties need to be defined, as well as the
-*provider* property being set to a supported provider (currently only
+provider the last block of properties needs to be defined, as well as the
+*provider* property is set to a supported provider (currently only
 AWS S3).
 
 > **Note**
@@ -679,12 +674,12 @@ the configured LDAP server URL and the manager DN and password. Once the
 binding is done, it will search for an entry in the directory using the
 configured LDAP search base and search filter.
 
-The {0} variable in the configured filter will be substituted beforing
+The {0} variable in the configured filter will be substituted before
 applying the filter. By default, it will be substituted by the supplied
 username. You can also set a custom LDAP identifier on the relevant
-DHIS2 user account. This can be done throught the DHIS2 user module user
+DHIS2 user account. This can be done through the DHIS2 user module user
 interface in the add or edit screen by setting the "LDAP identifier"
-property. When set, the LDAP identifier will be subsituted for the {0}
+property. When set, the LDAP identifier will be substituted for the {0}
 variable in the filter. This feature is useful when the LDAP common name
 is not suitable or cannot for some reason be used as a DHIS2 username.
 
@@ -692,31 +687,30 @@ is not suitable or cannot for some reason be used as a DHIS2 username.
 
 <!--DHIS2-SECTION-ID:install_encryption_configuration-->
 
-DHIS2 allows for encryption of data. This however requires some extra
+DHIS2 allows for encryption of data. Enabling it requires some extra
 setup. To provide security to the encryption algorithm you will have to set a
 password in the *dhis.conf* configuration file through the
 *encryption.password* property:
 
 ```properties
-    encryption.password = xxxx
+encryption.password = xxxx
 ```
 
-The *encryption.password* property is the password used when encrypting
+The *encryption.password* property is the password (key) used when encrypting
 and decrypting data in the database. Note that the password must not be
-changed once it has been set and data has been encrypted as the data can
+changed once it has been set and data has been encrypted, as the data can
 then no longer be decrypted. 
 
 The password must be at least **24 characters long**. A mix of numbers 
-and lower- and uppercase letters are recommended. The encryption password 
+and lower- and uppercase letters is recommended. The encryption password 
 must be kept secret.
 
 > **Important**
 >
-> A word of caution: It is not possible to recover encrypted data if the
-> encryption password is lost or changed. If the password is lost, so is 
-> the encrypted data.Conversely, the encryption provides no security if 
-> the password is compromised. Hence, great consideration should be given 
-> to storing the password in a safe place.
+> It is not possible to recover encrypted data if the encryption password is lost or changed. If the password is lost, so is the encrypted data. Conversely, the encryption provides no security if 
+> the password is compromised. Hence, great consideration should be given to storing the password in a safe place.
+
+Note that encryption support depends on the *Java Cryptography Extension* (JCE) policy files to be available.  These are included in all versions of OpenJDK and Oracle JDK 8 Update 144 or later.
 
 ## Read replica database configuration
 
@@ -788,25 +782,32 @@ can be added to improve performance. It also allows for *high
 availability* as the system can tolerate instances going down without
 making the system inaccessible to users.
 
+There are a few aspects to configure in order to run DHIS 2
+in a cluster.
+
+* Each DHIS 2 instance must specify the other DHIS 2 instance members of 
+the cluster in *dhis.conf*.
+
+* A Redis data store must be installed and connection information must 
+be provided for each DHIS 2 application instance in *dhis.conf*.
+
+* DHIS 2 instances and servers must share the same *files* folder used for 
+apps and file uploads, either through the *AWS S3 cloud filestorage* option 
+or a shared network drive.
+
+* A load balancer such as nginx must be configured to distribute Web requests
+across the cluster instances.
+
+### DHIS 2 instance cluster configuration
+
+<!--DHIS2-SECTION-ID:install_cluster_configuration-->
+
 When setting up multiple Tomcat instances there is a need for making the
 instances aware of each other. This awareness will enable DHIS 2 to keep
 the local data (Hibernate) caches in sync and in a consistent state.
 When an update is done on one instance, the caches on the other
 instances must be notified so that they can be invalidated and avoid
 becoming stale.
-
-There are two aspects to configure in *dhis.conf* in order to run DHIS 2
-in a cluster.
-
-  - Each instance must specify the other DHIS 2 application members of
-    the cluster.
-
-  - An instance of the Redis data store must be installed and connection
-    information must be configured for each DHIS 2 application instance.
-
-### Cluster instance configuration
-
-<!--DHIS2-SECTION-ID:install_cluster_configuration-->
 
 A DHIS 2 cluster setup is based on manual configuration of each
 instance. For each DHIS 2 instance one must specify the public
@@ -869,7 +870,7 @@ You must restart each Tomcat instance to make the changes take effect.
 The two instances have now been made aware of each other and DHIS 2 will
 ensure that their caches are kept in sync.
 
-### Cluster shared data store configuration
+### Redis shared data store cluster configuration
 
 <!--DHIS2-SECTION-ID:install_cluster_configuration_redis-->
 
@@ -929,7 +930,32 @@ redis.use.ssl = false
 leader.time.to.live.minutes=4 
 ```
 
-### Load balancing
+### Files folder configuration
+
+DHIS 2 will store several types of files outside the application itself,
+such as apps, files saved in data entry and user avatars. When deployed
+in a cluster, the location of these files must be shared across all instances.
+On the local filesystem, the location is:
+
+```
+{DHIS2_HOME}/files
+```
+
+Here, `DHIS2_HOME` refers to the location of the DHIS 2 configuration file
+as specified by the DHIS 2 environment variable, and `files` is the file
+folder immediately below.
+
+There are two ways to achieve a shared location:
+
+* Use the *AWS S3 cloud filestorage* option. Files will be stored in an
+S3 bucket which is automatically shared by all DHIS 2 instances in the cluster.
+See the *File store configuration* section for guidance.
+* Set up a shared folder which is shared among all DHIS 2 instances and
+servers in the cluster. On Linux this can be achieved with *NFS* (Network File System)
+which is a distributed file system protocol. Note that only the `files` 
+subfolder under `DHIS2_HOME` should be shared, not the parent folder. 
+
+### Load balancer configuration
 
 <!--DHIS2-SECTION-ID:install_load_balancing-->
 
@@ -975,8 +1001,7 @@ same server. The *ip\_hash* directive in the upstream element ensures
 this.
 
 Note that several instructions have been omitted for brevity in the
-above example. Consult the reverse proxy section for a detailed
-configuration guide.
+above example. Consult the reverse proxy section for a detailed guide.
 
 ## Analytics cache configuration
 
@@ -992,7 +1017,7 @@ analytics.cache.expiration = 3600
 
 DHIS 2 can export Prometheus compatible metrics for monitoring DHIS2 instances. The DHIS2 monitoring infrastructure is designed to expose metrics related to the application runtime and other application-related information.
 
-Infrastucture related metrics (such as host metrics, Tomcat or Postgres) are not directly exposed by the application monitoring engine and they have to be collected separately. The metrics currently exposed by the application are:
+Infrastructure related metrics (such as host metrics, Tomcat or Postgres) are not directly exposed by the application monitoring engine and they have to be collected separately. The metrics currently exposed by the application are:
 
 - DHIS 2 API (response time, number of calls, etc.)
 - JVM (Heap size, Garbage collection, etc.)
@@ -1001,18 +1026,20 @@ Infrastucture related metrics (such as host metrics, Tomcat or Postgres) are not
 - Application uptime
 - CPU
 
-Monitoring can be enabled in `dhis.conf` with the following properties (default is `false` for all properties):
+Monitoring can be enabled in `dhis.conf` with the following properties (default is `off` for all properties):
 
 ```properties
-monitoring.api.enabled = true
-monitoring.jvm.enabled = true
-monitoring.dbpool.enabled = ture
-monitoring.hibernate.enabled = true
-monitoring.uptime.enabled = true
-monitoring.cpu.enabled = true
+monitoring.api.enabled = on
+monitoring.jvm.enabled = on
+monitoring.dbpool.enabled = on
+monitoring.hibernate.enabled = off
+monitoring.uptime.enabled = on
+monitoring.cpu.enabled = on
 ```
 
-The recommended approach for collecting and visualization these metrics are through Prometheus and Grafana. For more information, see the [monitoring infrastructure](https://github.com/dhis2/wow-backend/blob/master/guides/monitoring.md) page and the [Prometheus and Grafana install](https://docs.dhis2.org/master/en/dhis2_system_administration_guide/monitoring.html) chapter.
+The recommended approach for collecting and visualizing these metrics is through Prometheus and Grafana. 
+
+For more information, see the [monitoring infrastructure](https://github.com/dhis2/wow-backend/blob/master/guides/monitoring.md) page and the [Prometheus and Grafana install](https://docs.dhis2.org/master/en/dhis2_system_administration_guide/monitoring.html) chapter.
 
 ## Reverse proxy configuration
 
@@ -1040,7 +1067,7 @@ has many advantages:
 
 <!--DHIS2-SECTION-ID:install_basic_nginx_setup-->
 
-We recommend using [nginx](http://www.nginx.org) as reverse proxy due to
+We recommend using [nginx](http://www.nginx.org) as a reverse proxy due to
 its low memory footprint and ease of use. To install invoke the
 following:
 
@@ -1061,7 +1088,7 @@ configuration file by invoking:
     sudo nano /etc/nginx/nginx.conf
 
 nginx configuration is built around a hierarchy of blocks representing
-http, server and location, where each block inherit settings from parent
+http, server and location, where each block inherits settings from parent
 blocks. The following snippet will configure nginx to proxy pass
 (redirect) requests from port 80 (which is the port nginx will listen on
 by default) to our Tomcat instance. Include the following configuration
@@ -1079,15 +1106,7 @@ http {
 
   server {
 	listen               80;
-	root  /home/dhis/tomcat/webapps/ROOT; # Update path!
 	client_max_body_size 10M;
-
-	# Serve static files
-
-	location ~ (\.js|\.css|\.gif|\.woff|\.ttf|\.eot|\.ico|(/dhis-web-commons/|/images/|/icons/).*\.png)$ {
-	  add_header  Cache-Control public;
-	  expires     14d;
-	}
 
 	# Proxy pass to servlet container
 
@@ -1124,7 +1143,7 @@ for HTTP 1.1 like this:
 In order to improve security it is recommended to configure the server
 running DHIS2 to communicate with clients over an encrypted connection
 and to identify itself to clients using a trusted certificate. This can
-be achieved through SSL which is an cryptographic communication protocol
+be achieved through SSL which is a cryptographic communication protocol
 running on top of TCP/IP. First, install the required *openssl* library:
 
     sudo apt-get install openssl
@@ -1176,7 +1195,6 @@ http {
 
   server {
 	listen               443 ssl;
-	root  /home/dhis/tomcat/webapps/ROOT; # Update path!
 	client_max_body_size 10M;
 
 	ssl                  on;
@@ -1189,13 +1207,6 @@ http {
 	ssl_protocols              TLSv1 TLSv1.1 TLSv1.2;
 	ssl_ciphers                RC4:HIGH:!aNULL:!MD5;
 	ssl_prefer_server_ciphers  on;
-
-	# Serve static files
-
-	location ~ (\.js|\.css|\.gif|\.woff|\.ttf|\.eot|\.ico|(/dhis-web-commons/|/images/|/icons/).*\.png)$ {
-	  add_header  Cache-Control public;
-	  expires     14d;
-	}
 
 	# Proxy pass to servlet container
 
@@ -1215,16 +1226,16 @@ http {
 }
 ```
 
-Note the last "https" header value which is required to inform the
+Note the last `https` header value which is required to inform the
 servlet container that the request is coming over HTTPS. In order for
-tomcat to properly produce Location URLs using https you also need to
-add two other parameters to the Connector in tomcat's server.xml file:
+Tomcat to properly produce `Location` URL headers using HTTPS you also need
+to add two other parameters to the Connector in the Tomcat `server.xml` file:
 
 ```xml
 <Connector scheme="https" proxyPort="443" />
 ```
 
-### Enabling caching and SSL with nginx
+### Enabling caching with nginx
 
 <!--DHIS2-SECTION-ID:install_enabling_caching_ssl_nginx-->
 
@@ -1238,47 +1249,12 @@ will create this directory automatically.
 
 ```text
 http {
-  # ...
-  root              /home/dhis/tomcat/webapps/ROOT; # Update path!
+  ..
   proxy_cache_path  /var/cache/nginx  levels=1:2  keys_zone=dhis:250m  inactive=1d;
 
-  gzip on; # Enables compression, incl Web API content-types
-  gzip_types
-	"application/json;charset=utf-8" application/json
-	"application/javascript;charset=utf-8" application/javascript text/javascript
-	"application/xml;charset=utf-8" application/xml text/xml
-	"text/css;charset=utf-8" text/css
-	"text/plain;charset=utf-8" text/plain;
-
-  # HTTP server - rewrite to force use of HTTPS
 
   server {
-	listen     80;
-	rewrite    ^ https://www.domain.com/$request_uri? permanent;
-  }
-
-  # HTTPS server
-
-  server {
-	listen               443 ssl;
-	client_max_body_size 10M;
-
-	ssl                  on;
-	ssl_certificate      server.crt;
-	ssl_certificate_key  server.key;
-
-	ssl_session_timeout  30m;
-
-	ssl_protocols              SSLv2 SSLv3 TLSv1;
-	ssl_ciphers                HIGH:!aNULL:!MD5;
-	ssl_prefer_server_ciphers  on;
-
-	# Serve static files
-
-	location ~ (\.js|\.css|\.gif|\.woff|\.ttf|\.eot|\.ico|(/dhis-web-commons/|/images/|/icons/).*\.png)$ {
-	  add_header  Cache-Control public;
-	  expires     14d;
-	}
+	..
 
 	# Proxy pass to servlet container and potentially cache response
 
@@ -1350,7 +1326,7 @@ For a full explanation please consult the [nginx documentation](https://www.ngin
 
 In some scenarios it is desirable to make certain resources publicly
 available on the Web without requiring authentication. One example is
-when you want to make data analysis related resources in the Web API
+when you want to make data analysis related resources in the web API
 available in a Web portal. The following example will allow access to
 charts, maps, reports, report table and document resources through basic
 authentication by injecting an *Authorization* HTTP header into the
@@ -1372,24 +1348,28 @@ you can set a dedicated subdomain at api.somedomain.com, and point URLs
 from your portal to this subdomain.
 
 ```text
-server {
-  listen       80;
-  server_name  api.somedomain.com;
-	
-  location ~ ^/(api/(charts|chartValues|reports|reportTables|documents|maps|organisationUnits)|dhis-web-commons/javascripts|images|dhis-web-commons-ajax-json|dhis-web-mapping|dhis-web-visualizer) {
-	if ($request_method != GET) {
-	  return 405;
-	}
+http {
+  ..
+  
+  server {
+    listen       80;
+    server_name  api.somedomain.com;
 
-	proxy_pass         http://localhost:8080;
-	proxy_redirect     off;
-	proxy_set_header   Host               $host;
-	proxy_set_header   X-Real-IP          $remote_addr;
-	proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
-	proxy_set_header   X-Forwarded-Proto  http;
-	proxy_set_header   Authorization      "Basic YWRtaW46ZGlzdHJpY3Q=";
-	proxy_set_header   Cookie             "";
-	proxy_hide_header  Set-Cookie;
+    location ~ ^/(api/(charts|chartValues|reports|reportTables|documents|maps|organisationUnits)|dhis-web-commons/javascripts|images|dhis-web-commons-ajax-json|dhis-web-mapping|dhis-web-visualizer) {
+    if ($request_method != GET) {
+        return 405;
+      }
+
+      proxy_pass         http://localhost:8080;
+      proxy_redirect     off;
+      proxy_set_header   Host               $host;
+      proxy_set_header   X-Real-IP          $remote_addr;
+      proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+      proxy_set_header   X-Forwarded-Proto  http;
+      proxy_set_header   Authorization      "Basic YWRtaW46ZGlzdHJpY3Q=";
+      proxy_set_header   Cookie             "";
+      proxy_hide_header  Set-Cookie;
+    }
   }
 }
 ```
@@ -1506,6 +1486,28 @@ ldap.search.filter = (cn={0})
 node.id = 'node-1'
 
 # ----------------------------------------------------------------------
+# Monitoring [Optional]
+# ----------------------------------------------------------------------
+
+# DHIS2 API monitoring
+monitoring.api.enabled = on
+
+# JVM monitoring
+monitoring.jvm.enabled = on
+
+# Database connection pool monitoring
+monitoring.dbpool.enabled = on
+
+# Hibernate monitoring, do not use in production
+monitoring.hibernate.enabled = off
+
+# Uptime monitoring
+monitoring.uptime.enabled = on
+
+# CPU monitoring
+monitoring.cpu.enabled = on
+
+# ----------------------------------------------------------------------
 # Analytics [Optional]
 # ----------------------------------------------------------------------
 
@@ -1513,7 +1515,7 @@ node.id = 'node-1'
 analytics.cache.expiration = 3600
 
 # ----------------------------------------------------------------------
-# System monitoring [Optional]
+# System telemetry [Optional]
 # ----------------------------------------------------------------------
 
 # System monitoring URL
@@ -1538,7 +1540,7 @@ The DHIS2 application log output is directed to multiple files and locations. Fi
 
     <tomcat-dir>/logs/catalina.out
 
-Second, log output is written to a "logs" directory under the DHIS2 home directory as defined by the the DHIS2\_HOME environment variables. There is a main log file for all output, and separate log files for various
+Second, log output is written to a "logs" directory under the DHIS2 home directory as defined by the DHIS2\_HOME environment variables. There is a main log file for all output, and separate log files for various
 background processes. The main file includes the background process logs as well. The log files are capped at 50 Mb and log content is continuously appended.
 
     <DHIS2_HOME>/logs/dhis.log    
@@ -1588,7 +1590,7 @@ file copy immediately you can do:
 
 To restore this copy on another system, you first need to create an
 empty database as described in the installation section. You also need
-to gunzip the copy if you created a compressed version. You can the
+to gunzip the copy if you created a compressed version. You can
 invoke:
 
     psql -d dhis2 -U dhis -f dhis2.sql

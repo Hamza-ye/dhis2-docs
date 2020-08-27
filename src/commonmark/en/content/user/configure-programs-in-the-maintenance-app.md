@@ -3428,6 +3428,13 @@ Its value varies between -3.5 to 3.5 depending upon the value of the weight.
 <td>(string)</td>
 <td>Contains the name of the current program stage that triggered the rules. This can be used to run rules in specific program stages, or avoid execution in certain stages. When executing the rules in the context of a TEI registration form the variable will be empty.</td>
 </tr>
+<tr class="even">
+<td>V{completed_date}</td>
+<td>(string)</td>
+<td>This variable contains completion date of event which triggered this rule. If event is not yet complete then &quot;completed_date&quot; contains nothing.</td>
+</tr>
+
+
 </tbody>
 </table>
 
@@ -3514,7 +3521,7 @@ programs.
 6.  (Optional) Type a **Description**.
 
 7. (Optional) In the **Field mask** field, you may type a template that's used to provide
-   hints for correct formatting of the attribute in Capture and Tracker Capture apps.
+   hints for correct formatting of the attribute. **NOTE: So far only implemented in the DHIS2 Android Capture app, not in the Capture and Tracker Capture web apps.**
    The following are special characters that can be used in the mask. The special characters match exactly one character of the given type.
 
    | Character     |    Match       |
@@ -3824,10 +3831,11 @@ the **Program** configuration.
 
 <!-- end list -->
 
-  - Maximum number of tracked entity instances to return: This property
-    defines the maximum number of results a user will get in her search.
-    If a too large number of tracked entity instances is found, the user
-    must provide a more specific search.
+  - Maximum number of tracked entity instances to return: This property defines how specific a search must be, by limiting the number of matching tracked entity instances a user is allowed to get for her search criteria. If the number of matching records is larger than this maximum, they will not be returned. The user must provide more specific search criteria, in order to reduce the number of matching records, before they are returned.
+  
+    > **NOTE**
+    > 
+    > This maximum is only applied to search results outside the users capture org unit. Within the capture scope, the user can see any number of results.
 
 ### Configure search for tracked entity type
 
@@ -3864,10 +3872,11 @@ There are two limits that can be set for a TET search
 
 <!-- end list -->
 
-  - Maximum number of tracked entity instances to return: This property
-    defines the maximum number of results a user will get in her search.
-    If a too large number of tracked entity instances is found, the user
-    must provide a more specific search.
+  - Maximum number of tracked entity types to return: This property defines how specific a search must be, by limiting the number of matching tracked entity types a user is allowed to get for her search criteria. If the number of matching records is larger than this maximum, they will not be returned. The user must provide more specific search criteria, in order to reduce the number of matching records, before they are returned.
+  
+    > **NOTE**
+    > 
+    > This maximum is only applied to search results outside the users capture org unit. Within the capture scope, the user can see any number of results.
 
 ### Configure search organisation units for a user
 
